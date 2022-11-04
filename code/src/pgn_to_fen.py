@@ -1,6 +1,7 @@
 import chess
 import sys
 
+# Legal moves from FEN
 def main(fen: str, outFile: str):
     board = chess.Board(fen)
     moves = list(board.legal_moves)
