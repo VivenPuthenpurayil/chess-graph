@@ -91,8 +91,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic -Wall -Werror -Wfatal-errors -
 # Specify debug symbols and no optimizations for Debug builds.
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG -O0 -gdwarf-4")
 
-# Specify additional clean files.
-set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_CLEAN_FILES "${assignment_clean_rm}")
 
 # Add Catch2.
 # Note: Ubuntu 20.04 LTS does not have Catch2 on apt
@@ -114,11 +112,9 @@ else()
 endif()
 
 # Path definitions.
-set(lib_dir ${CMAKE_SOURCE_DIR}/lib)
 set(src_dir ${CMAKE_SOURCE_DIR}/src)
 set(tests_dir ${CMAKE_SOURCE_DIR}/tests)
 set(entry_dir ${CMAKE_SOURCE_DIR}/entry)
-
 
 # Run CMakeLists in src_dir to build the student's code.
 add_subdirectory(${src_dir})
@@ -129,12 +125,12 @@ file(GLOB_RECURSE tests_src CONFIGURE_DEPENDS ${tests_dir}/*.cpp)
 include(Catch)
 
 add_executable(test ${tests_src})
-target_link_libraries(test PRIVATE Catch2::Catch2WithMain libs src)
+target_link_libraries(test PRIVATE Catch2::Catch2WithMain src)
 
 catch_discover_tests(test)
 
-# Add the assignment entrypoints using our libs and src code.
+# Add the entrypoints using our libs and src code.
 foreach(entrypoint IN LISTS entrypoints)
     add_executable(${entrypoint} ${entry_dir}/${entrypoint}.cpp)
-    target_link_libraries(${entrypoint} PRIVATE libs src)
+    target_link_libraries(${entrypoint} PRIVATE src)
 endforeach()
