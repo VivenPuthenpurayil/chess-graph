@@ -4,12 +4,18 @@
 
 
 Graph generateGraph(Position pos) {
+    // Support Graph
     Graph output;
 
     for (auto & move : pos.legal_moves) {
-        // output.insertVertex(move.from);
-        // output.insertVertex(move.to);
-        // output.insertEdge(move.from, move.to); // Directed Edge
+        // if 
+        output.insertVertex(1);
+        if (pos.board[pos.toIndex(move.to)].type != Position::Piece::NONE) {
+            output.insertVertex(1);
+            output.insertEdge(move.from, move.to); // Directed Edge
+        }
+        
+        
     }
 
     return output;
