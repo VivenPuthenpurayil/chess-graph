@@ -47,7 +47,7 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
     GET_EVAL = evaluation
     
     if (GET_EVAL == True):
-        path = Path(__file__).parents[2] / 'stockfish/stockfish_15_x64'
+        path = Path(__file__).parents[3] / 'stockfish/stockfish_15_x64'
         engine = chess.engine.SimpleEngine.popen_uci(str(path.absolute()))
         
     for location in locations:
