@@ -8,7 +8,7 @@ from pathlib import Path
 def select_games(infile: str = "data/lichess_db_standard_rated_2013-01.pgn") -> List[int]:
     
     game_locations = []
-    num_games = 100
+    num_games = 5000
     pgn = open(infile)
     i = 0
     
