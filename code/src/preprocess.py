@@ -72,8 +72,8 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         score = 0
         if (GET_EVAL == True):
             analysis = engine.analyse(board, chess.engine.Limit(depth=10))
-            score = analysis["score"].relative
-            score = score.wdl(model='sf').expectation()
+            score = analysis["score"].white()
+            #score = score.wdl(model='sf').expectation()
             
         moves = list(board.legal_moves)
         
@@ -89,12 +89,9 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
     if engine:
         engine.quit()
     
-        
-    
-
 if __name__ == '__main__':
     
-    parser = argparse.ArgumentParser(description='Preprocess our pgn file')
+    parser = argparse.ArgumentParser(description='Preprocess our pgn file, returns fen, legal moves, and score from whites pov')
     parser.add_argument('infile', type=str)
     parser.add_argument('outfile', type=str)
     parser.add_argument('--evaluation', action=argparse.BooleanOptionalAction)
