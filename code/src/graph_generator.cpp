@@ -7,6 +7,7 @@ Graph generateGraph(Position pos) {
     // Support Graph
     Graph output;
 
+    /**
     for (auto & move : pos.legal_moves) {
         // if 
         output.insertVertex(1);
@@ -17,6 +18,7 @@ Graph generateGraph(Position pos) {
         
         
     }
+    */
 
     return output;
 
