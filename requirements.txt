@@ -1,0 +1,20 @@
+brotlipy @ file:///home/conda/feedstock_root/build_artifacts/brotlipy_1666764672617/work
+certifi==2022.9.24
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1666754707314/work
+charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1661170624537/work
+chess==1.9.3
+colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1666700638685/work
+conda==22.9.0
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1666837452491/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1667422962169/work
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1663625384323/work
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1666836642684/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1665350324128/work
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1661604839144/work
+python-chess==1.999
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1661872987712/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1666819784739/work
+toolz @ file:///home/conda/feedstock_root/build_artifacts/toolz_1657485559105/work
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1662214488106/work
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1658789158161/work
