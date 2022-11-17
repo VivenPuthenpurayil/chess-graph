@@ -8,7 +8,7 @@ from pathlib import Path
 def select_games(infile: str = "data/lichess_db_standard_rated_2013-01.pgn") -> List[int]:
     
     game_locations = []
-    num_games = 5000
+    num_games = 200
     pgn = open(infile)
     i = 0
     
@@ -71,11 +71,12 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         
         score = 0
         if (GET_EVAL == True):
-            analysis = engine.analyse(board, chess.engine.Limit(depth=10))
+            analysis = engine.analyse(board, chess.engine.Limit(depth=17)) # Change depth or time=1 to set how long it takes to run this
+            # 4 mins for 200 games on depth=17
             score = analysis["score"].white()
             #score = score.wdl(model='sf').expectation()
             
-        moves = list(board.legal_moves)
+        moves = list(board.pseudo_legal_moves) # Or board.legal_moves if we want to limit moves when there is a check.
         
         
         f = open(outfile, 'a')
