@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <Position.h>
+#include "src/position.h"
 
 using namespace std;
 
