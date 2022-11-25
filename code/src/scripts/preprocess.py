@@ -76,8 +76,11 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
             score = analysis["score"].white()
             #score = score.wdl(model='sf').expectation()
             
-        moves = list(board.pseudo_legal_moves) # Or board.legal_moves if we want to limit moves when there is a check.
+        whiteMoves = list(board.pseudo_legal_moves) # Or board.legal_moves if we want to limit moves when there is a check.
+        board.turn = chess.BLACK
+        blackMoves = list(board.pseudo_legal_moves)
         
+        moves = whiteMoves + blackMoves
         
         f = open(outfile, 'a')
         f.write(fen + ",")
