@@ -5,7 +5,7 @@
 
 Graph generateGraph(Position pos) {
     // Support Graph
-    Graph output;
+    Graph output(3);
 
     /**
     for (auto & move : pos.legal_moves) {

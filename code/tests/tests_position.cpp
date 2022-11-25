@@ -20,9 +20,9 @@ TEST_CASE("test Position::fromFile")
 {
 	std::ifstream file("../tests/output.txt");
     std::string line;
-    std::getline(file, line);
+	std::getline(file, line);
 
-    std::vector<std::string> data;
+	std::vector<std::string> data;
     SplitString(line, ',', data);
 
 	Position pos(data);
