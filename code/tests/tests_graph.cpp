@@ -25,7 +25,7 @@ TEST_CASE("test Graph::insert & remove")
 {
     Graph g(3);
 
-    g.insertEdge(100, 2, 2);
+    g.insertEdge(1, 2, 2);
     REQUIRE(g.num_edges() == 1);
     REQUIRE(g.edgeExists(1, 2));
     REQUIRE(!g.edgeExists(2, 1));
