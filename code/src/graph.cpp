@@ -33,7 +33,7 @@ std::list<int> Graph::out_neighbors(int v) const {
     std::list<int> neighbors_;
 
     for (int j = 0; j < num_verticies_; j++) {
-        if (std::abs(adjacency_matrix_[v][j]) >= 1) {
+        if (std::abs(adjacency_matrix_[v][j]) >= 1) {   // neighbors that vertex v can travel to
             neighbors_.push_back(j);
         }
     }
@@ -45,7 +45,7 @@ std::list<int> Graph::in_neighbors(int v) const {
     std::list<int> neighbors_;
 
     for (int j = 0; j < num_verticies_; j++) {
-        if (std::abs(adjacency_matrix_[j][v]) >= 1) {
+        if (std::abs(adjacency_matrix_[j][v]) >= 1) {   // neighbors that can travel to vertex v
             neighbors_.push_back(j);
         }
     }
