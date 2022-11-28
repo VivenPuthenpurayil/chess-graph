@@ -11,7 +11,7 @@ public:
 
     Graph(int size);
 
-    void insertEdge(int v1, int v2);
+    void insertEdge(int v1, int v2, int weight);
     void removeEdge(int v1, int v2);
     
     std::list<int> out_neighbors(int v) const;
@@ -20,6 +20,7 @@ public:
     std::list<int> neighbors(int v) const;
 
     bool edgeExists(int v1, int v2) const;
+    int weight(int v1, int v2) const;
 
     int degree(int v) const; // This is the sum of in + out, however this means we are double counting bidirectional edges.
     int in_degree(int v) const;
