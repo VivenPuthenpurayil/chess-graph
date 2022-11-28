@@ -9,31 +9,33 @@ class Graph {
 */
 public:
 
+    /**
+      * Creates a graph object of @param size
+      */
     Graph(int size);
 
     void insertEdge(int v1, int v2, int weight);
     void removeEdge(int v1, int v2);
     
-    std::list<int> out_neighbors(int v) const;
-    std::list<int> in_neighbors(int v) const;
+    std::list<int> out_neighbors(int v) const;  // list of neighbors that you can travel to from this vertex
+    std::list<int> in_neighbors(int v) const;   // list neighbors that can travel to this vertex
 
-    std::list<int> neighbors(int v) const;
+    std::list<int> neighbors(int v) const;      // List of both in and out neighbors
 
     bool edgeExists(int v1, int v2) const;
-    int weight(int v1, int v2) const;
+    int weight(int v1, int v2) const;           // weight of the edge from v1 to v2
 
-    int degree(int v) const; // This is the sum of in + out, however this means we are double counting bidirectional edges.
-    int in_degree(int v) const;
-    int out_degree(int v) const;
+    int degree(int v) const;                    // This is the sum of in + out, however this means we are double counting bidirectional edges.
+    int out_degree(int v) const;                // number of neighbors that you can travel to from this vertex
+    int in_degree(int v) const;                 // number of neighbors that can travel to this vertex
 
-    int num_verticies() const;
-    int num_edges() const;
+    int num_verticies() const;                  // Total number of verticies in the graph
+    int num_edges() const;                      // Total number of edges in the graph
 
 
 private:
     std::vector<std::vector<int>> adjacency_matrix_;
     const int num_verticies_;
     int num_edges_;
-
 
 };
