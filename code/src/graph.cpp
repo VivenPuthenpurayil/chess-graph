@@ -6,6 +6,13 @@ Graph::Graph(int num_verticies) : num_verticies_(num_verticies), num_edges_(0) {
     adjacency_matrix_ = std::vector<std::vector<int>>(num_verticies, std::vector<int>(num_verticies, 0));
 }
 
+void Graph::insertEdge(int v1, int v2) {
+    if (!(std::abs(adjacency_matrix_[v1][v2]) >= 1)) {
+        num_edges_++;
+    }
+    adjacency_matrix_[v1][v2] = 1; // from v1 to v2
+}
+
 void Graph::insertEdge(int v1, int v2, int weight) {
     if (!(std::abs(adjacency_matrix_[v1][v2]) >= 1)) {
         num_edges_++;

@@ -14,6 +14,7 @@ public:
       */
     Graph(int size);
 
+    void insertEdge(int v1, int v2);            // Default implementation where weight is 1
     void insertEdge(int v1, int v2, int weight);
     void removeEdge(int v1, int v2);
     
