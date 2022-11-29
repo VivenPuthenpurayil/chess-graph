@@ -1,13 +1,33 @@
-#include <position.h>
+#include "position.h"
 
 
 Position::Position() {
     // Create position with default fen (starting position)
+    evaluation = 0;
     build_("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 }
 
 Position::Position(std::string fen) {
+    evaluation = 0;
     build_(fen);
+}
+
+Position::Position(std::string fen, std::list<Position::Move> moves, float eval) {
+    build_(fen);
+    legal_moves = moves;
+    evaluation = eval;
+}
+Position::Position(std::vector<std::string> csv_entry) {
+
+    build_(csv_entry[0]);
+    
+    auto it = csv_entry.begin() + 1;
+    // Second to last ele
+    while (it != (csv_entry.rbegin() + 1).base())
+    {
+        legal_moves.push_back(Position::Move(*it++));
+    }
+    evaluation = std::stof(*it);
 }
 
 void Position::build_(std::string fen) {
@@ -71,8 +91,6 @@ Position::Piece::Piece() {
     type = NONE;
     color = -1;
 }
-
-
 
 int Position::toIndex(std::string square) const {
     return toIndex(square[0], square[1]);
