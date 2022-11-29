@@ -24,11 +24,13 @@ std::vector<int> tarjans(const Graph& g) {
 
     int size = g.num_verticies();
     int count = 0;
+    int id = 0;
 
     // For Tarjans
     std::vector<int> lowlink (size, 0); // Store low link values of each node
     std::stack<int> ll_stack; // store if they are on the tarjans stack
     std::vector<bool> on_stack (size, false);
+    std::vector<int> ids (size, 0);
 
     // For our DFS
     std::vector<bool> visited (size, false);
@@ -38,32 +40,33 @@ std::vector<int> tarjans(const Graph& g) {
         if (visited[i] == true) {
             continue;
         }
-        tarjans_(i, g, lowlink, ll_stack, on_stack, visited);
+        tarjans_(i, g, lowlink, ll_stack, on_stack, visited, id, ids);
     }
     return lowlink;
 }
 
 
-void tarjans_(int v, const Graph& g, std::vector<int> & lowlink, std::stack<int> & ll_stack, std::vector<bool> & on_stack, std::vector<bool> &visited) {
+void tarjans_(int v, const Graph& g, std::vector<int> & lowlink, std::stack<int> & ll_stack, std::vector<bool> & on_stack, std::vector<bool> &visited, int & id, std::vector<int> & ids) {
     ll_stack.push(v);
     on_stack[v] = true;
     visited[v] = true;
-    lowlink[v] = v;
+    lowlink[v] = id;
+    ids[v] = id++;
 
     for(int n : g.out_neighbors(v)) {
         if (visited[n] == false) {
-            tarjans_(n, g, lowlink, ll_stack, on_stack, visited);
+            tarjans_(n, g, lowlink, ll_stack, on_stack, visited, id, ids);
         }
         if (on_stack[n] == true) {
             lowlink[v] = std::min(lowlink[v], lowlink[n]);
         }
     }
 
-    if (lowlink[v] == v) {
+    if (lowlink[v] == ids[v]) {
         while (!ll_stack.empty()) {
             int i = ll_stack.top();
             ll_stack.pop();
-            lowlink[i] = v;
+            lowlink[i] = ids[v];
             on_stack[i] = false;
             if (i == v) {
                 break;

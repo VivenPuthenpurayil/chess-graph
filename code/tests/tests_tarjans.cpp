@@ -39,7 +39,7 @@ TEST_CASE("test Tarjans::medium")
 
     // Ignore 9th vertex for now
 
-    REQUIRE(tarjans(g) == std::vector<int>{0, 0, 0, 3, 3, 5, 5, 5});
+    REQUIRE(tarjans(g) == std::vector<int>{0, 0, 0, 2, 2, 5, 5, 5});
 
 }
 
@@ -65,7 +65,7 @@ TEST_CASE("test Tarjans::hard")
     g.insertEdge(8, 6);
     g.insertEdge(8, 7);
 
-    REQUIRE(tarjans(g) == std::vector<int>{0, 0, 0, 3, 3, 5, 5, 5, 8});
+    REQUIRE(tarjans(g) == std::vector<int>{0, 0, 0, 2, 2, 5, 5, 5, 8});
 
 }
 
@@ -90,9 +90,9 @@ TEST_CASE("test Tarjans::harder")
     g.insertEdge(8, 6);
     g.insertEdge(8, 7);
 
-    REQUIRE(tarjans(g) == std::vector<int>{0, 1, 0, 1, 0, 5, 5, 5, 8});
+    REQUIRE(tarjans(g) == std::vector<int>{0, 2, 0, 2, 0, 5, 5, 5, 8});
 }
-// Example for how to retreive useful data from our lowlink list.
+// Example for how to retrieve useful data from our lowlink list.
 TEST_CASE("test Tarjans::parse lowlink")
 {
     int s = 0; 
@@ -102,16 +102,16 @@ TEST_CASE("test Tarjans::parse lowlink")
 
     Graph g(9);
 
-    // Build our graph (same as test Tarjans::hard)
-    g.insertEdge(0, 4); //
-    g.insertEdge(4, 0); //
+    // Build our graph (same as test Tarjans::harder)
+    g.insertEdge(0, 4); 
+    g.insertEdge(4, 0); 
     g.insertEdge(0, 2);
     g.insertEdge(2, 0);
     g.insertEdge(2, 3);
     g.insertEdge(3, 1);
     g.insertEdge(1, 3);
-    g.insertEdge(5, 4); //
-    g.insertEdge(4, 3); //
+    g.insertEdge(5, 4); 
+    g.insertEdge(4, 3); 
     g.insertEdge(5, 1);
     g.insertEdge(6, 1);
     g.insertEdge(5, 6);
@@ -122,6 +122,16 @@ TEST_CASE("test Tarjans::parse lowlink")
     g.insertEdge(8, 7);
 
     std::vector<int> lowlink = tarjans(g);
+
+    std::map<int, int> sizes;
+    for (int i : lowlink) {
+        sizes[i]++;
+    }
+
+    int max_size = std::max_element(sizes.begin(), sizes.end(),  
+    [] (const std::pair<int, int> & p1, const std::pair<int, int> & p2) {
+        return p1.second < p2.second;}
+    )->second;
 
     s = (int) lowlink.size();
 
@@ -134,6 +144,7 @@ TEST_CASE("test Tarjans::parse lowlink")
 
     REQUIRE(average_size_scc > 1);
     REQUIRE(num_scc == 4);
+    REQUIRE(max_size == 3);
 
 
 }
