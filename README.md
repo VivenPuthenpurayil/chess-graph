@@ -8,7 +8,7 @@ https://snap.stanford.edu/class/cs224w-2013/projects2013/cs224w-023-final.pdf
 
 Example
 
-  code/src/preprocess.py "data/lichess_db_standard_rated_2013-01.pgn" "data/temp.txt" --evaluation
+  python3 code/src/scripts/preprocess.py --no-evaluation "data/lichess_db_standard_rated_2013-01.pgn" 'output.txt'
 
 ## Code
 All of our code will be in this folder
