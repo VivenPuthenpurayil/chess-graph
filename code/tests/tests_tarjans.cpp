@@ -43,8 +43,9 @@ TEST_CASE("test Tarjans::medium")
 
 }
 
-TEST_CASE("test Tarjans::hard") 
+TEST_CASE("test Tarjans::hard 1") 
 {  
+    // From youtube video
     Graph g(9);
     g.insertEdge(0, 1, 1);
     g.insertEdge(1, 0, 1);
@@ -69,6 +70,46 @@ TEST_CASE("test Tarjans::hard")
 
 }
 
+TEST_CASE("test Tarjans::hard 2")
+{
+    //From wikipedia
+    Graph g(16);
+    g.insertEdge(1, 0);
+    g.insertEdge(0, 2);
+    g.insertEdge(2, 1);
+    g.insertEdge(3, 2);
+    g.insertEdge(4, 3);
+    g.insertEdge(2, 4);
+    g.insertEdge(4, 5);
+    g.insertEdge(1, 5);
+    g.insertEdge(5, 6);
+    g.insertEdge(5, 8);
+    g.insertEdge(8, 6);
+    g.insertEdge(6, 7);
+    g.insertEdge(7, 8);
+    g.insertEdge(7, 9);
+    g.insertEdge(8, 9);
+    g.insertEdge(5, 10);
+    g.insertEdge(10, 11);
+    g.insertEdge(11, 10);
+    g.insertEdge(13, 10);
+    g.insertEdge(4, 14);
+    g.insertEdge(3, 15);
+    g.insertEdge(15, 14);
+    g.insertEdge(13, 12);
+    g.insertEdge(14, 13);
+    g.insertEdge(13, 15);
+    g.insertEdge(12, 15);
+
+
+    std::vector<int> lowlink = tarjans(g);
+    int max = max_size_scc(lowlink);
+    int num = num_scc(lowlink);
+
+    REQUIRE(max == 5);
+    REQUIRE(num == 6);
+
+}
 TEST_CASE("test Tarjans::harder")
 {
     Graph g(9);
@@ -96,9 +137,9 @@ TEST_CASE("test Tarjans::harder")
 TEST_CASE("test Tarjans::parse lowlink")
 {
     int s = 0; 
-    int num_scc = 0;
+    int num = 0;
     float average_size_scc = 0;
-    int max_size_scc = 0;
+    int max = 0;
 
     Graph g(9);
 
@@ -123,28 +164,16 @@ TEST_CASE("test Tarjans::parse lowlink")
 
     std::vector<int> lowlink = tarjans(g);
 
-    std::map<int, int> sizes;
-    for (int i : lowlink) {
-        sizes[i]++;
-    }
-
-    int max_size = std::max_element(sizes.begin(), sizes.end(),  
-    [] (const std::pair<int, int> & p1, const std::pair<int, int> & p2) {
-        return p1.second < p2.second;}
-    )->second;
+    max = max_size_scc(lowlink);
+    num = num_scc(lowlink);
 
     s = (int) lowlink.size();
 
-    std::sort(lowlink.begin(), lowlink.end());
-    auto last = std::unique(lowlink.begin(), lowlink.end());
-    lowlink.resize(std::distance(lowlink.begin(), last));
-
-    num_scc = lowlink.size();
-    average_size_scc = (float) s / num_scc;
+    average_size_scc = (float) s / num;
 
     REQUIRE(average_size_scc > 1);
-    REQUIRE(num_scc == 4);
-    REQUIRE(max_size == 3);
+    REQUIRE(num == 4);
+    REQUIRE(max == 3);
 
 
 }

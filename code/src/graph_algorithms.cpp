@@ -20,6 +20,31 @@ int max_degree(const Graph& g) {
     return max;
 }
 
+int max_size_scc(std::vector<int> lowlink) {
+
+    std::map<int, int> sizes;
+    for (int i : lowlink) {
+        sizes[i]++;
+    }
+
+    int max_size = std::max_element(sizes.begin(), sizes.end(),  
+    [] (const std::pair<int, int> & p1, const std::pair<int, int> & p2) {
+        return p1.second < p2.second;}
+    )->second;
+
+    return max_size;
+}
+
+int num_scc(std::vector<int> lowlink) {
+    int s = (int) lowlink.size();
+
+    std::sort(lowlink.begin(), lowlink.end());
+    auto last = std::unique(lowlink.begin(), lowlink.end());
+    lowlink.resize(std::distance(lowlink.begin(), last));
+
+    return lowlink.size();
+}
+
 std::vector<int> tarjans(const Graph& g) {
 
     int size = g.num_verticies();
