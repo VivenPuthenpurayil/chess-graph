@@ -1,7 +1,0 @@
-/workspaces/cs225/Chess-graph/code/build/CMakeFiles/test.dir
-/workspaces/cs225/Chess-graph/code/build/CMakeFiles/main.dir
-/workspaces/cs225/Chess-graph/code/build/CMakeFiles/edit_cache.dir
-/workspaces/cs225/Chess-graph/code/build/CMakeFiles/rebuild_cache.dir
-/workspaces/cs225/Chess-graph/code/build/src/CMakeFiles/src.dir
-/workspaces/cs225/Chess-graph/code/build/src/CMakeFiles/edit_cache.dir
-/workspaces/cs225/Chess-graph/code/build/src/CMakeFiles/rebuild_cache.dir
