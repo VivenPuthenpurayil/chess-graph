@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsrc.a CMakeFiles/src.dir/graph.cpp.o CMakeFiles/src.dir/graph_algorithms.cpp.o CMakeFiles/src.dir/graph_generator.cpp.o CMakeFiles/src.dir/position.cpp.o CMakeFiles/src.dir/utils.cpp.o
+/usr/bin/ranlib libsrc.a
