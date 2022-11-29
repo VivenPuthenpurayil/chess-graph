@@ -22,16 +22,31 @@ def select_games(infile: str = "data/lichess_db_standard_rated_2013-01.pgn") -> 
         
         # Conditions for what games we want here
         elo = headers.get("WhiteElo")
+        term = headers.get("Termination")
+        elo2 = headers.get("BlackElo")
+        tie = headers.get("Result") == "1/2-1/2"
+
+        
         
         try:
             elo = int(elo)
+            elo2 = int(elo2)
         except Exception as e:
             continue
         
-        # Elo condition
-        if (elo > 1200):
+        diff = abs(elo - elo2)
+
+
+        ''' Set Conditions:
+            elo > 1200 -- White Elo is higher than 1200
+            term != "Time forfeit" check game does not end by time (People leave etc)
+            elo2 > 1200 -- Black Elo is higher than 1200
+            dif < 200 -- check elo difference is less than 200
+            not tie -- check game ends with victor
+        '''
+        if (elo > 1200 and term != "Time forfeit" and elo2 > 1200 and diff < 200 and not tie):
             game_locations.append(game_location)
-            
+
         i += 1
             
     # Loop through our games
