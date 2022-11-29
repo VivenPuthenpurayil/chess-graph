@@ -8,6 +8,18 @@
 
 using namespace std;
 
+TEST_CASE("test Tarjans::empty")
+{
+    Graph g1(4);
+    REQUIRE(num_scc(tarjans(g1)) == 4);
+
+    Graph g2(0);
+    REQUIRE(num_scc(tarjans(g2)) == 0);
+
+    Graph g3(100);
+    REQUIRE(num_scc(tarjans(g3)) == 100);
+}
+
 TEST_CASE("test Tarjans::easy")
 {
     Graph g(3);
