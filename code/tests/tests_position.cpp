@@ -13,6 +13,7 @@ TEST_CASE("test Position::default")
 	Position::Piece p = pos.board[pos.toIndex("a2")];
 	REQUIRE((p.type == Position::Piece::PAWN && p.color == LIGHT));
 	REQUIRE(pos.legal_moves.size() == 0);
+	REQUIRE(pos.num_pieces == 32);
 
 }
 
@@ -26,6 +27,7 @@ TEST_CASE("test Position::fromFile")
     SplitString(line, ',', data);
 
 	Position pos(data);
+	REQUIRE(pos.num_pieces == 26);
 	Position::Piece N = pos.board[pos.toIndex("e4")];
 	REQUIRE((N.type == Position::Piece::KNIGHT && N.color == LIGHT));
 
@@ -34,4 +36,5 @@ TEST_CASE("test Position::fromFile")
 	REQUIRE((q.type == Position::Piece::QUEEN && q.color == DARK));
 	REQUIRE(pos.legal_moves.size() == 32);
 	REQUIRE(pos.evaluation > 130);
+
 }

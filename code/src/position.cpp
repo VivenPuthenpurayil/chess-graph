@@ -31,6 +31,7 @@ Position::Position(std::vector<std::string> csv_entry) {
 }
 
 void Position::build_(std::string fen) {
+    num_pieces = 0;
     board = std::vector<Piece>(64, Piece());
     int pos = 0;
     fen_ = fen;
@@ -46,6 +47,7 @@ void Position::build_(std::string fen) {
             continue;
         }
         Piece p(c);
+        num_pieces++;
         board[pos] = p;
         pos++;
     }

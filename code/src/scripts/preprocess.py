@@ -90,12 +90,22 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
             # 4 mins for 200 games on depth=17
             score = analysis["score"].white()
             #score = score.wdl(model='sf').expectation()
-            
-        whiteMoves = list(board.pseudo_legal_moves) # Or board.legal_moves if we want to limit moves when there is a check.
-        board.turn = chess.BLACK
-        blackMoves = list(board.pseudo_legal_moves)
         
-        moves = whiteMoves + blackMoves
+        
+        # Calculate moves
+        moves = []
+        for attacker in chess.SquareSet((board.occupied)):
+            attacker_name = chess.square_name(attacker)
+            for target in board.attacks(attacker):
+                target_name = chess.square_name(target)
+                moves.append(attacker_name+target_name)
+                
+                
+        #whiteMoves = list(board.pseudo_legal_moves) # Or board.legal_moves if we want to limit moves when there is a check.
+        #board.turn = chess.BLACK
+        #blackMoves = list(board.pseudo_legal_moves)
+        
+        #moves = whiteMoves + blackMoves
         
         f = open(outfile, 'a')
         f.write(fen + ",")
