@@ -186,6 +186,16 @@ TEST_CASE("test Tarjans::parse lowlink")
     REQUIRE(average_size_scc > 1);
     REQUIRE(num == 4);
     REQUIRE(max == 3);
+}
 
+TEST_CASE("test Tarjans::parse max lowlink"){
+    std::vector<int> ll{0, 0, 0, 2, 2, 1, 3, 5, 5, 6, 6, 6, 6, 6, 9, 10};
+    int i = num_large_scc(ll, 0);
+    int k = num_large_scc(ll, 1);
+    int j = num_large_scc(ll, 2);
+
+    REQUIRE(i == 8);
+    REQUIRE(k == 4);
+    REQUIRE(j == 2);
 
 }

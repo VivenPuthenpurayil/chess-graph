@@ -39,7 +39,7 @@ int main()
         for (auto & g : graphs) {
             std::vector<int> ll(pos.num_pieces);
             ll = tarjans(g);
-            int sccs = num_scc(ll);
+            int sccs = num_large_scc(ll, 1);
             int edges = g.num_edges();
             std::cout << edges << " ";
         }
