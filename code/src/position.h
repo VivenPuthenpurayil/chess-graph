@@ -76,6 +76,8 @@ public:
     std::list<Move> legal_moves;
     std::vector<Piece> board; 
     int num_pieces;
+    int num_pieces_white;
+    int num_pieces_black;
 
     int toIndex(char rank, char file) const;
     int toIndex(std::string square) const;

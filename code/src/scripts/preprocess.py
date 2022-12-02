@@ -86,7 +86,7 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         
         score = 0
         if (GET_EVAL == True):
-            analysis = engine.analyse(board, chess.engine.Limit(depth=17)) # Change depth or time=1 to set how long it takes to run this
+            analysis = engine.analyse(board, chess.engine.Limit(depth=12)) # Change depth or time=1 to set how long it takes to run this
             # 4 mins for 200 games on depth=17
             score = analysis["score"].white()
             #score = score.wdl(model='sf').expectation()
