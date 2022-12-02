@@ -12,7 +12,7 @@
 int main()
 {
     // Parse 50 games
-    std::ifstream file("../tests/data/preprocessed.txt");
+    std::ifstream file("../../data/preprocessed.txt");
     
     for (int i = 0; i < 50; i++) {
         std::string line;
