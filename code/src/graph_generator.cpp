@@ -22,5 +22,4 @@ Graph generateSupport(Position pos) {
     }
     
     return output;
-
 }

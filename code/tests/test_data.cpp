@@ -7,7 +7,7 @@
 
 TEST_CASE("Data Clean 1")
 {
-	std::ifstream file("../tests/test.txt");
+	std::ifstream file("../tests/data/test.txt");
     std::string s;
     std::vector<std::string> check;
     // std::getline(file,s);
@@ -18,7 +18,7 @@ TEST_CASE("Data Clean 1")
             std::getline(file, s);
             check.push_back(s);
             std::cout << "___________________" << std::endl; 
-    std::cout << s << std::endl;
+            std::cout << s << std::endl;
         }
     }
 	REQUIRE(check.size() == 3);

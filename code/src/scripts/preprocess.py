@@ -121,11 +121,14 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Preprocess our pgn file, returns fen, legal moves, and score from whites pov')
-    parser.add_argument('infile', type=str)
-    parser.add_argument('outfile', type=str)
+    default_in = Path(__file__).parents[2] / 'tests/data/test.pgn'
+    default_out = Path(__file__).parents[2] / 'tests/data/preprocessed.txt'
+    parser.add_argument('--infile', type=str, default=default_in)
+    parser.add_argument('--outfile', type=str, default=default_out)
     parser.add_argument('--evaluation', action=argparse.BooleanOptionalAction)
     
     args = (parser.parse_args())
+    
     
     games = select_games(args.infile)
     
