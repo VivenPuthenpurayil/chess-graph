@@ -8,7 +8,7 @@ from pathlib import Path
 def select_games(infile: str = "data/lichess_db_standard_rated_2013-01.pgn") -> List[int]:
     
     game_locations = []
-    num_games = 200
+    num_games = 2000
     pgn = open(infile)
     i = 0
     
@@ -109,6 +109,9 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         
         f = open(outfile, 'a')
         f.write(fen + ",")
+        if (score.is_mate()):
+            score = "0"
+        
         for move in moves:
             f.write(str(move) + ",")
         f.write(str(score) + "\n")
