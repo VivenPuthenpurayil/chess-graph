@@ -11,11 +11,6 @@
 
 int main()
 {
-<<<<<<< HEAD
-    // Write your own main here
-    std::cout << "test" << "\n";
-    
-=======
     // Parse 50 games
     std::ifstream file("../../data/preprocessed.txt");
     
@@ -58,6 +53,5 @@ int main()
     file.close();
 
 
->>>>>>> 4da52332a4da0b3c992116e29b613a57c383e504
     return 0;
 }
