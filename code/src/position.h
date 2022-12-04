@@ -62,6 +62,7 @@ public:
             enum PieceType {NONE, PAWN, BISHOP, KNIGHT, ROOK, KING, QUEEN};
             PieceType type;
             bool color;
+            char identifier;
             
     };
 

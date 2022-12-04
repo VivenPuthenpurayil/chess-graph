@@ -52,6 +52,7 @@ void Position::build_(std::string fen) {
 }
 
 Position::Piece::Piece(char c) {
+    identifier = c;
     if (islower(c)) {
         color = DARK;
     }
@@ -88,6 +89,7 @@ Position::Piece::Piece(char c) {
 }
 
 Position::Piece::Piece() {
+    identifier = ' ';
     type = NONE;
     color = -1;
 }
