@@ -11,6 +11,8 @@ void tarjans_(int v, const Graph& g, std::vector<int> & lowlink, std::stack<int>
 
 int num_scc(std::vector<int> lowlink);
 
+int num_large_scc(std::vector<int> lowlink, int size);
+
 int max_size_scc(std::vector<int> lowlink);
 
 int average_degree(const Graph& g);

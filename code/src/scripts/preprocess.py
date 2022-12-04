@@ -8,7 +8,7 @@ from pathlib import Path
 def select_games(infile: str = "data/lichess_db_standard_rated_2013-01.pgn") -> List[int]:
     
     game_locations = []
-    num_games = 200
+    num_games = 2000
     pgn = open(infile)
     i = 0
     
@@ -86,19 +86,32 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         
         score = 0
         if (GET_EVAL == True):
-            analysis = engine.analyse(board, chess.engine.Limit(depth=17)) # Change depth or time=1 to set how long it takes to run this
+            analysis = engine.analyse(board, chess.engine.Limit(depth=12)) # Change depth or time=1 to set how long it takes to run this
             # 4 mins for 200 games on depth=17
             score = analysis["score"].white()
             #score = score.wdl(model='sf').expectation()
-            
-        whiteMoves = list(board.pseudo_legal_moves) # Or board.legal_moves if we want to limit moves when there is a check.
-        board.turn = chess.BLACK
-        blackMoves = list(board.pseudo_legal_moves)
         
-        moves = whiteMoves + blackMoves
+        
+        # Calculate moves
+        moves = []
+        for attacker in chess.SquareSet((board.occupied)):
+            attacker_name = chess.square_name(attacker)
+            for target in board.attacks(attacker):
+                target_name = chess.square_name(target)
+                moves.append(attacker_name+target_name)
+                
+                
+        #whiteMoves = list(board.pseudo_legal_moves) # Or board.legal_moves if we want to limit moves when there is a check.
+        #board.turn = chess.BLACK
+        #blackMoves = list(board.pseudo_legal_moves)
+        
+        #moves = whiteMoves + blackMoves
         
         f = open(outfile, 'a')
         f.write(fen + ",")
+        if (score.is_mate()):
+            score = "0"
+        
         for move in moves:
             f.write(str(move) + ",")
         f.write(str(score) + "\n")
@@ -111,11 +124,14 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Preprocess our pgn file, returns fen, legal moves, and score from whites pov')
-    parser.add_argument('infile', type=str)
-    parser.add_argument('outfile', type=str)
+    default_in = Path(__file__).parents[2] / 'tests/data/test.pgn'
+    default_out = Path(__file__).parents[2] / 'tests/data/preprocessed.txt'
+    parser.add_argument('--infile', type=str, default=default_in)
+    parser.add_argument('--outfile', type=str, default=default_out)
     parser.add_argument('--evaluation', action=argparse.BooleanOptionalAction)
     
     args = (parser.parse_args())
+    
     
     games = select_games(args.infile)
     
