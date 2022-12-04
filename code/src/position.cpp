@@ -89,7 +89,7 @@ Position::Piece::Piece(char c) {
 }
 
 Position::Piece::Piece() {
-    identifier = ' ';
+    identifier = '.';
     type = NONE;
     color = -1;
 }

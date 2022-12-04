@@ -37,7 +37,7 @@ void display_groups(Position & p, std::vector<int> colorscheme) {
                 std::cout << Color::Modifier(Color::BG_DEFAULT);
                 std::cout << "\n";
             }
-            std::cout << "|";
+            std::cout << "| ";
         }
 
         group = colorscheme[i];
@@ -53,11 +53,11 @@ void display_groups(Position & p, std::vector<int> colorscheme) {
         }
         
         std::cout << Color::Modifier(cmod);
-        std::cout << p.board[i].identifier;
+        std::cout << p.board[i].identifier << " ";
         std::cout << Color::Modifier(Color::FG_DEFAULT);
         
     }
-    std::cout << "\n";
+    std::cout << "|\n";
     std::cout << Color::Modifier(Color::FG_DEFAULT);
     std::cout << Color::Modifier(Color::BG_DEFAULT);
     
