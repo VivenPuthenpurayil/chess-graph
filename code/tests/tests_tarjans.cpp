@@ -199,3 +199,12 @@ TEST_CASE("test Tarjans::parse max lowlink"){
     REQUIRE(j == 2);
 
 }
+
+TEST_CASE("test Tarjans::purge small ll") {
+    std::vector<int> ll{0, 0, 0, 2, 2, 1, 3, 5, 5, 6, 6, 6, 6, 6, 9, 10};
+    ll = purge_small_ll(ll, 1);
+    REQUIRE(ll == std::vector<int>{0, 0, 0, 2, 2, -1, -1, 5, 5, 6, 6, 6, 6, 6, -1, -1});
+    ll = purge_small_ll(ll, 2);
+    REQUIRE(ll == std::vector<int>{0, 0, 0, -1, -1, -1, -1, -1, -1, 6, 6, 6, 6, 6, -1, -1});
+
+}
