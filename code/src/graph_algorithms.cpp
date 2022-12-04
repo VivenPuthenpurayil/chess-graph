@@ -75,7 +75,7 @@ int num_large_scc(std::vector<int> lowlink, int size) {
 }
 
 std::vector<int> purge_small_ll(std::vector<int> lowlink, int size) {
-    //Replace the sccs that are too small with -1;
+    // Replace the sccs that are too small with -1;
     int s = (int) lowlink.size();
 
     int limit = size; // How big the sccs have to be

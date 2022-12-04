@@ -6,6 +6,27 @@ Graph::Graph(int num_verticies) : num_verticies_(num_verticies), num_edges_(0) {
     adjacency_matrix_ = std::vector<std::vector<int>>(num_verticies, std::vector<int>(num_verticies, 0));
 }
 
+Graph Graph::g_union(Graph & g1, Graph & g2) {
+
+    Graph out(g1.num_verticies());
+    if (g1.num_verticies_ != g2.num_verticies_) {
+        // this shouldn't happen idk how to handle
+        return out;
+    }
+
+    for (int i = 0; i < g1.num_verticies(); i++) {
+        for (int j = 0; j < g1.num_verticies(); j++) {
+            if (g1.adjacency_matrix_[i][j] > 0 || g2.adjacency_matrix_[i][j] > 0) {
+                out.num_edges_++;
+            }
+            out.adjacency_matrix_[i][j] = std::max(g1.adjacency_matrix_[i][j], g2.adjacency_matrix_[i][j]);
+        }
+    }
+
+    return out;
+
+}
+
 void Graph::insertEdge(int v1, int v2) {
     if (!(std::abs(adjacency_matrix_[v1][v2]) >= 1)) {
         num_edges_++;

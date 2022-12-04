@@ -24,7 +24,9 @@ int main() {
         // Build position from data
         
         Position p(data);
-        Graph g = generateSupport(p, LIGHT);
+        Graph g1 = generateSupport(p, LIGHT);
+        Graph g2 = generateSupport(p, DARK);
+        Graph g = Graph::g_union(g1, g2);
         int scc_count = num_large_scc(tarjans(g), 1);
         int max_scc = max_size_scc(tarjans(g));
         std::vector<int> colorscheme = purge_small_ll(tarjans(g), 1);
