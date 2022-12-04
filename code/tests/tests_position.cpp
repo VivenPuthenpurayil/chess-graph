@@ -13,25 +13,29 @@ TEST_CASE("test Position::default")
 	Position::Piece p = pos.board[pos.toIndex("a2")];
 	REQUIRE((p.type == Position::Piece::PAWN && p.color == LIGHT));
 	REQUIRE(pos.legal_moves.size() == 0);
+	REQUIRE(pos.num_pieces == 32);
 
 }
 
 TEST_CASE("test Position::fromFile")
 {
-	std::ifstream file("../tests/output.txt");
+	std::ifstream file("../tests/data/preprocessed.txt");
     std::string line;
 	std::getline(file, line);
 
 	std::vector<std::string> data;
     SplitString(line, ',', data);
 
+	file.close();
+
 	Position pos(data);
-	Position::Piece N = pos.board[pos.toIndex("e4")];
+	REQUIRE(pos.num_pieces == 29);
+	Position::Piece N = pos.board[pos.toIndex("g5")];
 	REQUIRE((N.type == Position::Piece::KNIGHT && N.color == LIGHT));
 
-	Position::Piece q = pos.board[pos.toIndex("g6")];
+	Position::Piece q = pos.board[pos.toIndex("b6")];
 
 	REQUIRE((q.type == Position::Piece::QUEEN && q.color == DARK));
-	REQUIRE(pos.legal_moves.size() == 32);
-	REQUIRE(pos.evaluation > 130);
+
+
 }

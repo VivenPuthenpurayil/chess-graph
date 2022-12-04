@@ -45,6 +45,35 @@ int num_scc(std::vector<int> lowlink) {
     return lowlink.size();
 }
 
+int num_large_scc(std::vector<int> lowlink, int size) {
+    int s = (int) lowlink.size();
+
+    std::sort(lowlink.begin(), lowlink.end());
+
+    int limit = size;
+
+    int curr = lowlink[0];
+    int count = 0;
+    int out = 0;
+    bool begin = true;
+    for (int i : lowlink) {
+        if (curr == i) {
+            count++;
+        }
+        else if (curr != i){
+            if (count > limit) {
+                out++;
+            }
+            curr = i;
+            count = 1;
+        }
+    }
+    if (count > limit) {
+        out++;
+    }
+    return out;
+}
+
 std::vector<int> tarjans(const Graph& g) {
 
     int size = g.num_verticies();
