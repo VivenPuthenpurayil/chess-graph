@@ -35,9 +35,13 @@ int main()
         //graphs.push_back(b_attack);
         //graphs.push_back(w_attack);
         std::cout << "Graph #" << i+1 << ", ";
-        int white = max_size_scc(tarjans(w_support)); //num_large_scc(tarjans(w_support), 4);
-        int black = max_size_scc(tarjans(b_support)); //num_large_scc(tarjans(b_support), 4);
-        std::cout << white - black << ", " << pos.evaluation;
+        float white = max_size_scc(tarjans(w_support)); //num_large_scc(tarjans(w_support), 4);
+        float black = max_size_scc(tarjans(b_support)); //num_large_scc(tarjans(b_support), 4);
+        white = w_support.num_edges();
+        black = b_support.num_edges();
+        white = average_degree(w_support);
+        black = average_degree(b_support);
+        std::cout << white - black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
         /**for (auto & g : graphs) {
             std::vector<int> ll(pos.num_pieces);
             ll = tarjans(g);

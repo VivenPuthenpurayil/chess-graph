@@ -17,6 +17,8 @@ int max_size_scc(std::vector<int> lowlink);
 
 std::vector<int> purge_small_ll(std::vector<int> lowlink, int size);
 
-int average_degree(const Graph& g);
+float average_degree(const Graph& g);
+
+int max_degree(const Graph& g);
 
 int num_edges(const Graph& g); 

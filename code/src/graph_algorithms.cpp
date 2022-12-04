@@ -1,10 +1,12 @@
 #include "graph_algorithms.h"
 
-int average_degree(const Graph& g) {
-    int num = 0;
+float average_degree(const Graph& g) {
+    float num = 0;
     for (int i = 0; i < g.num_verticies(); i++) {
-        num += g.degree(i);
-        num /= 2;
+        if (g.degree(i) > 0) {
+            num += g.degree(i);
+            num /= 2;
+        }
     }
     return num;
 
