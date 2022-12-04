@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 set(name "chess-graph")
 set(version 1.0) # Version, where minor=semester_year, patch=semester_end_month, tweak=revision
-set(entrypoints "main") # Entrypoints to run the program
+set(entrypoints "main" "visualizer") # Entrypoints to run the program
 set(container "fa22") # Container we are targetting
 
 # Add color support to our messages.
