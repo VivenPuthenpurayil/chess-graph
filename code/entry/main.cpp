@@ -12,7 +12,7 @@
 int main()
 {
     // Parse 50 games
-    std::ifstream file("../../data/preprocessed.txt");
+    std::ifstream file("../../data/preprocessed2.txt");
     
     for (int i = 0; i < 500; i++) {
         std::string line;
@@ -34,14 +34,20 @@ int main()
         graphs.push_back(w_support);
         //graphs.push_back(b_attack);
         //graphs.push_back(w_attack);
-        std::cout << "Graph #" << i+1 << ", ";
+        /**
         float white = max_size_scc(tarjans(w_support)); //num_large_scc(tarjans(w_support), 4);
         float black = max_size_scc(tarjans(b_support)); //num_large_scc(tarjans(b_support), 4);
         white = w_support.num_edges();
         black = b_support.num_edges();
         white = average_degree(w_support);
         black = average_degree(b_support);
-        std::cout << white - black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
+        //if (std::abs(pos.material_white - pos.material_black) > 2 ) {
+        //    continue;
+        //}
+        */
+        std::cout << "Graph #" << i+1 << ", ";
+        std::cout << pos.material_white - pos.material_black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
+        //std::cout << white - black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
         /**for (auto & g : graphs) {
             std::vector<int> ll(pos.num_pieces);
             ll = tarjans(g);

@@ -64,19 +64,22 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
     if (GET_EVAL == True):
         path = Path(__file__).parents[3] / 'stockfish/stockfish_15_x64'
         engine = chess.engine.SimpleEngine.popen_uci(str(path.absolute()))
-        
+    
+    # Location of the game
     for location in locations:
         board = None
         pgn.seek(location)
         game = chess.pgn.read_game(pgn)
         nodes = game.mainline()
         
-        # Go to the 15th move
+        # Find a good position in this game to analyze
         i = 0
-        for node in nodes:
-            if i > 15 * 2:
-                board = node.board()
-                break
+        board = game.board()
+        for position in nodes:
+            if (not board.is_capture(position.move) and i > 30):
+                break;
+            # Next position
+            board = position.board()
             i += 1
         
         if (not board):
@@ -108,9 +111,13 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         #moves = whiteMoves + blackMoves
         
         f = open(outfile, 'a')
-        f.write(fen + ",")
         if (score.is_mate()):
             score = "0"
+            continue
+        
+        f.write(fen + ",")
+        
+            
         
         for move in moves:
             f.write(str(move) + ",")
