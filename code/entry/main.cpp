@@ -11,13 +11,17 @@
 
 int main()
 {
-    // Parse 50 games
+    // Parse 500 games
     std::ifstream file("../../data/preprocessed2.txt");
 
-    std::vector<float> x;
-    std::vector<float> y;
+    std::vector<float> evaluation;
+    std::vector<std::vector<float>> characteristics;
     
-    for (int i = 0; i < 500; i++) {
+    std::vector<float> positionCharacteristics;
+
+    const int num_positions = 500;
+
+    for (int i = 0; i < num_positions; i++) {
         std::string line;
         std::getline(file, line);
 
@@ -25,19 +29,112 @@ int main()
         SplitString(line, ',', data);
 
         Position pos(data);
-        
 
+        evaluation.push_back(pos.evaluation);
+        
         Graph b_support = generateSupport(pos, DARK);
         Graph w_support = generateSupport(pos, LIGHT);
+
         Graph b_attack = generateAttack(pos, DARK);
         Graph w_attack = generateAttack(pos, LIGHT);
 
-        std::list<Graph> graphs;
-        graphs.push_back(b_support);
-        graphs.push_back(w_support);
+        Graph w_position = Graph::g_union(w_support, w_attack);
+        Graph b_position = Graph::g_union(b_support, b_attack);
 
-        //graphs.push_back(b_attack);
-        //graphs.push_back(w_attack);
+        //if (std::abs(pos.material_white - pos.material_black) > 2 ) {
+        //   continue;
+        //}
+
+        // Calculate Characteristics
+        float white;
+        float black;
+
+        // Material Difference (SANITY CHECK EHRE)
+        white = pos.material_white;
+        black = pos.material_black;
+        positionCharacteristics.push_back(white - black);
+
+        // Average Support Degree
+        white = average_degree(w_support);
+        black = average_degree(b_support);
+
+        positionCharacteristics.push_back(white - black);
+
+        // Average Attack Degree
+        white = average_degree(w_attack);
+        black = average_degree(b_attack);
+
+        positionCharacteristics.push_back(white - black);
+
+        // Average Position Degree
+        white = average_degree(w_position);
+        black = average_degree(b_position);
+
+        positionCharacteristics.push_back(white - black);
+
+        // Now do SCCS
+        std::vector<int> white_ll(64); // White lowlink
+        std::vector<int> black_ll(64); // Black lowlink
+
+        // Support
+        white_ll = tarjans(w_support);
+        black_ll = tarjans(b_support);
+
+        white = max_size_scc(white_ll);
+        black = max_size_scc(black_ll);
+
+        positionCharacteristics.push_back(white - black);
+
+        for (int k = 0; k < 6; k++) {
+            white = num_large_scc(white_ll, k);
+            black = num_large_scc(black_ll, k);
+
+            positionCharacteristics.push_back(white - black);
+        }
+
+        // Attack
+        white_ll = tarjans(w_attack);
+        black_ll = tarjans(b_attack);
+
+        white = max_size_scc(white_ll);
+        black = max_size_scc(black_ll);
+
+        positionCharacteristics.push_back(white - black);
+
+        for (int k = 0; k < 6; k++) {
+            white = num_large_scc(white_ll, k);
+            black = num_large_scc(black_ll, k);
+
+            positionCharacteristics.push_back(white - black);
+        }
+
+
+        // Position
+        white_ll = tarjans(w_position);
+        black_ll = tarjans(b_position);
+
+        white = max_size_scc(white_ll);
+        black = max_size_scc(black_ll);
+
+        positionCharacteristics.push_back(white - black);
+
+        for (int k = 0; k < 6; k++) {
+            white = num_large_scc(white_ll, k);
+            black = num_large_scc(black_ll, k);
+
+            positionCharacteristics.push_back(white - black);
+        }
+
+       
+
+
+
+        // Add the entire characterstics of the graph to the thing.
+        characteristics.push_back(positionCharacteristics);
+        positionCharacteristics.clear();
+
+
+
         /**
         float white = max_size_scc(tarjans(w_support)); //num_large_scc(tarjans(w_support), 4);
         float black = max_size_scc(tarjans(b_support)); //num_large_scc(tarjans(b_support), 4);
@@ -45,13 +142,9 @@ int main()
         black = b_support.num_edges();
         white = average_degree(w_support);
         black = average_degree(b_support);
-        //if (std::abs(pos.material_white - pos.material_black) > 2 ) {
-        //    continue;
-        //}
+        //
         */
 
-        std::cout << "Graph #" << i+1 << ", ";
-        std::cout << pos.material_white - pos.material_black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
         //std::cout << white - black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
         /**for (auto & g : graphs) {
             std::vector<int> ll(pos.num_pieces);
@@ -61,16 +154,20 @@ int main()
             std::cout << sccs << " ";
         }
         */
-        x.push_back(pos.material_white - pos.material_black);
-        y.push_back(pos.evaluation - (100 * (pos.material_white - pos.material_black)));
-        std::cout << "\n";
+       
         
     }
 
-    std::cout << LinearRegression(x, y) << "\n";
-
+    // Run + Output Linear Regression Results
+    for (int i = 0; i < (int) characteristics[0].size(); i++) {
+        std::vector<float> thing;
+        for (int j = 0; j < num_positions; j++) {
+            thing.push_back(characteristics[j][i]);
+        }
+        std::cout << LinearRegression(thing, evaluation) << " " << LinearRegression(evaluation, thing) << "\n";
+    }
+    
     file.close();
-
 
     return 0;
 }
