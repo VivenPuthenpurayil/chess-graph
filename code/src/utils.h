@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <ostream>
+#include <cmath>
 
 /**
  * Given a string and character, split the string by the character and store in a vector
@@ -18,6 +19,8 @@
  * @return The number of substrings created
  */
 int SplitString(const std::string & str1, char sep, std::vector<std::string> &fields);
+
+float LinearRegression(const std::vector<float> & x, const std::vector<float> & y);
 
 // Output colored text
 namespace Color {

@@ -13,6 +13,9 @@ int main()
 {
     // Parse 50 games
     std::ifstream file("../../data/preprocessed2.txt");
+
+    std::vector<float> x;
+    std::vector<float> y;
     
     for (int i = 0; i < 500; i++) {
         std::string line;
@@ -32,6 +35,7 @@ int main()
         std::list<Graph> graphs;
         graphs.push_back(b_support);
         graphs.push_back(w_support);
+
         //graphs.push_back(b_attack);
         //graphs.push_back(w_attack);
         /**
@@ -45,6 +49,7 @@ int main()
         //    continue;
         //}
         */
+
         std::cout << "Graph #" << i+1 << ", ";
         std::cout << pos.material_white - pos.material_black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
         //std::cout << white - black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
@@ -56,9 +61,13 @@ int main()
             std::cout << sccs << " ";
         }
         */
+        x.push_back(pos.material_white - pos.material_black);
+        y.push_back(pos.evaluation - (100 * (pos.material_white - pos.material_black)));
         std::cout << "\n";
         
     }
+
+    std::cout << LinearRegression(x, y) << "\n";
 
     file.close();
 
