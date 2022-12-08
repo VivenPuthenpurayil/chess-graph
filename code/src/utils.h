@@ -20,6 +20,7 @@
  */
 int SplitString(const std::string & str1, char sep, std::vector<std::string> &fields);
 
+//https://www.ncl.ac.uk/webtemplate/ask-assets/external/maths-resources/statistics/regression-and-correlation/coefficient-of-determination-r-squared.html#Definition
 float LinearRegression(const std::vector<float> & x, const std::vector<float> & y);
 
 // Output colored text

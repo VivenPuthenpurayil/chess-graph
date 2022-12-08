@@ -25,7 +25,7 @@ float LinearRegression(const std::vector<float> & x, const std::vector<float> & 
     float sumY = 0;
     float sumXY = 0;
 
-    float meanY = sumY / N;
+    
 
     float c0 = 0;
     float c1 = 0;
@@ -36,6 +36,8 @@ float LinearRegression(const std::vector<float> & x, const std::vector<float> & 
         sumY += y[i];
         sumXY += x[i] * y[i];
     }
+
+    float meanY = sumY / N;
 
     // Calculate c1
     c1 = (N * sumXY - sumX * sumY) / (N * sumXX - sumX * sumX);

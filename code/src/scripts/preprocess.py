@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import chess
 import chess.engine
 import chess.pgn
@@ -8,7 +10,7 @@ from pathlib import Path
 def select_games(infile: str = "data/lichess_db_standard_rated_2013-01.pgn") -> List[int]:
     
     game_locations = []
-    num_games = 2000
+    num_games = 10000
     pgn = open(infile)
     i = 0
     
@@ -89,7 +91,7 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         
         score = 0
         if (GET_EVAL == True):
-            analysis = engine.analyse(board, chess.engine.Limit(depth=12)) # Change depth or time=1 to set how long it takes to run this
+            analysis = engine.analyse(board, chess.engine.Limit(depth=15)) # Change depth or time=1 to set how long it takes to run this
             # 4 mins for 200 games on depth=17
             score = analysis["score"].white()
             #score = score.wdl(model='sf').expectation()

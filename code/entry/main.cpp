@@ -19,7 +19,7 @@ int main()
     
     std::vector<float> positionCharacteristics;
 
-    const int num_positions = 500;
+    const int num_positions = 4000;
 
     for (int i = 0; i < num_positions; i++) {
         std::string line;
@@ -30,7 +30,7 @@ int main()
 
         Position pos(data);
 
-        evaluation.push_back(pos.evaluation);
+        evaluation.push_back(pos.evaluation / 100);
         
         Graph b_support = generateSupport(pos, DARK);
         Graph w_support = generateSupport(pos, LIGHT);
@@ -93,11 +93,14 @@ int main()
         }
 
         // Attack
+        /**
         white_ll = tarjans(w_attack);
         black_ll = tarjans(b_attack);
 
         white = max_size_scc(white_ll);
         black = max_size_scc(black_ll);
+
+        std::cout << white-black << " ";
 
         positionCharacteristics.push_back(white - black);
 
@@ -107,6 +110,7 @@ int main()
 
             positionCharacteristics.push_back(white - black);
         }
+        */
 
 
         // Position
@@ -159,12 +163,15 @@ int main()
     }
 
     // Run + Output Linear Regression Results
+    // Loop through the characteristics for the first position.
     for (int i = 0; i < (int) characteristics[0].size(); i++) {
-        std::vector<float> thing;
+        std::vector<float> characteristic; // Representing one characteristic for all positions
         for (int j = 0; j < num_positions; j++) {
-            thing.push_back(characteristics[j][i]);
+            characteristic.push_back(characteristics[j][i]);
         }
-        std::cout << LinearRegression(thing, evaluation) << " " << LinearRegression(evaluation, thing) << "\n";
+        float r2 = LinearRegression(characteristic, evaluation);
+
+        std::cout << r2 << " " << LinearRegression(evaluation, characteristic) << "\n";
     }
     
     file.close();
