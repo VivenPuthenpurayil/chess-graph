@@ -3,6 +3,9 @@
 #include <string>
 #include <fstream>
 
+#include "../lib/cs225/Image.h"
+#include "../lib/cs225/StickerSheet.h"
+
 #include "utils.h"
 #include "position.h"
 #include "graph.h"
@@ -34,12 +37,12 @@ int main() {
         std::cout << "Graph #" << i+1 << ", " << scc_count << " " << max_scc << "\n";
         display_groups(p, colorscheme);
 
+        Image output = display_groups_png(p, colorscheme);
+        string outfile = "../output/scc" + std::to_string(i) + ".png"; 
+        output.writeToFile(outfile);
+
     }
+
+    return 0;
         
-    
-    
-
-    
-    
-
 }

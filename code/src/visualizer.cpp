@@ -21,6 +21,104 @@ void display_position(Position & p) {
 
 }
 
+Image display_groups_png(Position & p, std::vector<int> colorscheme) {
+    Image board; board.readFromFile("../../images/chessboard.png");
+    board.resize(480, 480);
+    StickerSheet sheet(board, 64);
+
+    std::vector<int> colors = {0, 100, 60, 230, 305, 170};
+    std::map<int, int> colormap;
+    int j = 0;
+    int group = 0;
+
+    int color = 0;
+
+    for(size_t i = 0; i < 64; i++) {
+        
+        // Assign color
+        group = colorscheme[i];
+        if (colormap.find(group) == colormap.end() && group != -1) {
+            // No color found, assign one
+            colormap[group] = colors[j++];
+        }
+        if (group == -1) {
+            color = -1;
+        }
+        else {
+            color = colormap[group];
+        }
+
+        if (p.board[i].type == Position::Piece::NONE) {
+            continue;
+        }
+        Image piece = get_piece_image(p.board[i]);
+
+        if (color != -1) {
+            color_piece(piece, color);
+        }
+
+        int x = (i % 8);
+        int y = ((i - x) / 8);
+
+        sheet.addSticker(piece, x * 60 + 8, y * 60 + 8);
+    }
+
+    return sheet.render();
+}
+
+Image get_piece_image(Position::Piece & p) {
+    Image out; 
+
+    switch (p.identifier) {
+        case 'r':
+            out.readFromFile("../../images/whiterook.png");
+            break;
+        case 'n':
+            out.readFromFile("../../images/whiteknight.png");
+            break;
+        case 'b':
+            out.readFromFile("../../images/whitebishop.png");
+            break;
+        case 'q':
+            out.readFromFile("../../images/whitequeen.png");
+            break;
+        case 'k':
+            out.readFromFile("../../images/whiteking.png");
+            break;
+        case 'p':
+            out.readFromFile("../../images/whitepawn.png");
+            break;
+        case 'R':
+            out.readFromFile("../../images/blackrook.png");
+            break;
+        case 'N':
+            out.readFromFile("../../images/blackknight.png");
+            break;
+        case 'B':
+            out.readFromFile("../../images/blackbishop.png");
+            break;
+        case 'Q':
+            out.readFromFile("../../images/blackqueen.png");
+            break;
+        case 'K':
+            out.readFromFile("../../images/blackking.png");
+            break;
+        case 'P':
+            out.readFromFile("../../images/blackpawn.png");
+            break;
+        default:
+            out.readFromFile("../../images/whitepawn.png");
+            break;
+    }
+    return out;
+}
+
+void color_piece(Image & i, int color) {
+    i.saturate(1);
+    i.darken(.4);
+    i.rotateColor(color);
+}
+
 void display_groups(Position & p, std::vector<int> colorscheme) {
     // -1 for default, colored otherwise
     std::vector<Color::Code> colors = {Color::FG_RED, Color::FG_GREEN, Color::FG_YELLOW, Color::FG_BLUE, Color::FG_MAGENTA, Color::FG_CYAN};
@@ -61,8 +159,4 @@ void display_groups(Position & p, std::vector<int> colorscheme) {
     std::cout << Color::Modifier(Color::FG_DEFAULT);
     std::cout << Color::Modifier(Color::BG_DEFAULT);
     
-    
-    
-
-
 }

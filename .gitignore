@@ -2,3 +2,5 @@ build/
 .vscode/
 stockfish*
 documents/
+output/
+tests/images/
