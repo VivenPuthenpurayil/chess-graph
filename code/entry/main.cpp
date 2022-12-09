@@ -12,14 +12,14 @@
 int main()
 {
     // Parse 500 games
-    std::ifstream file("../../data/preprocessed2.txt");
+    std::ifstream file("../../data/carlsen_preprocessed.txt");
 
     std::vector<float> evaluation;
     std::vector<std::vector<float>> characteristics;
     
     std::vector<float> positionCharacteristics;
 
-    const int num_positions = 4000;
+    const int num_positions = 2000;
 
     for (int i = 0; i < num_positions; i++) {
         std::string line;

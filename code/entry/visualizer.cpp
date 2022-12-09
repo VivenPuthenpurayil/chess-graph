@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     // Read in first line of our test data
     InputParser input(argc, argv);
 
-    std::ifstream file("../../data/preprocessed.txt");
+    std::ifstream file("../../data/carlsen_preprocessed.txt");
 
     if (!input.cmdOptionExists("-n")) {
         std::cerr << "Please specify number of positions using -n" << std::endl;
@@ -109,6 +109,13 @@ int main(int argc, char **argv) {
         draw_position(p, output);
         outfile = outfolder + "position" + std::to_string(i) + ".png"; 
         output.writeToFile(outfile);
+
+        std::vector<int> colorscheme = purge_small_ll(tarjans(union_support), 1);
+        output = get_groups_image(p, colorscheme);
+
+        outfile = outfolder + "sccs" + std::to_string(i) + ".png"; 
+        output.writeToFile(outfile);
+
 
 
 

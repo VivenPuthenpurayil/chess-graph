@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-
+#!/root/micromamba/bin/python3
+# why doesn't this work???
 import chess
 import chess.engine
 import chess.pgn
@@ -140,7 +140,6 @@ if __name__ == '__main__':
     parser.add_argument('--evaluation', action=argparse.BooleanOptionalAction)
     
     args = (parser.parse_args())
-    
     
     games = select_games(args.infile)
     
