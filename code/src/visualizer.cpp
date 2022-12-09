@@ -21,7 +21,29 @@ void display_position(Position & p) {
 
 }
 
-Image display_groups_png(Position & p, std::vector<int> colorscheme) {
+Image get_position_image(Position & p) {
+    Image board; board.readFromFile("../../images/chessboard.png");
+    board.resize(480, 480);
+    StickerSheet sheet(board, 64);
+
+    for(size_t i = 0; i < 64; i++) {
+        
+        if (p.board[i].type == Position::Piece::NONE) {
+            continue;
+        }
+        Image piece = get_piece_image(p.board[i]);
+
+
+        int x = (i % 8);
+        int y = ((i - x) / 8);
+
+        sheet.addSticker(piece, x * 60 + 8, y * 60 + 8);
+    }
+
+    return sheet.render();
+}
+
+Image get_groups_image(Position & p, std::vector<int> colorscheme) {
     Image board; board.readFromFile("../../images/chessboard.png");
     board.resize(480, 480);
     StickerSheet sheet(board, 64);
@@ -70,40 +92,40 @@ Image get_piece_image(Position::Piece & p) {
     Image out; 
 
     switch (p.identifier) {
-        case 'r':
+        case 'R':
             out.readFromFile("../../images/whiterook.png");
             break;
-        case 'n':
+        case 'N':
             out.readFromFile("../../images/whiteknight.png");
             break;
-        case 'b':
+        case 'B':
             out.readFromFile("../../images/whitebishop.png");
             break;
-        case 'q':
+        case 'Q':
             out.readFromFile("../../images/whitequeen.png");
             break;
-        case 'k':
+        case 'K':
             out.readFromFile("../../images/whiteking.png");
             break;
-        case 'p':
+        case 'P':
             out.readFromFile("../../images/whitepawn.png");
             break;
-        case 'R':
+        case 'r':
             out.readFromFile("../../images/blackrook.png");
             break;
-        case 'N':
+        case 'n':
             out.readFromFile("../../images/blackknight.png");
             break;
-        case 'B':
+        case 'b':
             out.readFromFile("../../images/blackbishop.png");
             break;
-        case 'Q':
+        case 'q':
             out.readFromFile("../../images/blackqueen.png");
             break;
-        case 'K':
+        case 'k':
             out.readFromFile("../../images/blackking.png");
             break;
-        case 'P':
+        case 'p':
             out.readFromFile("../../images/blackpawn.png");
             break;
         default:
@@ -160,3 +182,16 @@ void display_groups(Position & p, std::vector<int> colorscheme) {
     std::cout << Color::Modifier(Color::BG_DEFAULT);
     
 }
+
+void draw_edges(Graph & g, Image & base, int color) {
+    for (size_t i = 0; i < 64; i++) {
+        for(int n : g.out_neighbors(i)) {
+            int x0 = (i % 8);
+            int y0 = ((i - x0) / 8);
+            int x1 = (n % 8);
+            int y1 = ((n - x1) / 8);
+            base.drawthickline(x0  * 60 + 30, y0 * 60 + 30, x1 * 60 + 30, y1 * 60 + 30, color, 3);
+        }
+    }
+}
+
