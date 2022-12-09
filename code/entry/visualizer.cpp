@@ -88,7 +88,6 @@ int main(int argc, char **argv) {
         output.writeToFile(outfile);
 
 
-        
         output = get_position_image(p);
         draw_edges(white_attack, output, 0); // Red white attack edges
         draw_edges(black_attack, output, 100); // Green black attack edges
