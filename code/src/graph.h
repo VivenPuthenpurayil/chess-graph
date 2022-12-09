@@ -9,10 +9,13 @@ class Graph {
 */
 public:
 
+    
     /**
       * Creates a graph object of @param size
       */
     Graph(int size);
+
+    static Graph g_union(Graph & g1, Graph & g2); // Union of two graphs
 
     void insertEdge(int v1, int v2);            // Default implementation where weight is 1
     void insertEdge(int v1, int v2, int weight);

@@ -1,10 +1,12 @@
 #include "graph_algorithms.h"
 
-int average_degree(const Graph& g) {
-    int num = 0;
+float average_degree(const Graph& g) {
+    float num = 0;
     for (int i = 0; i < g.num_verticies(); i++) {
-        num += g.degree(i);
-        num /= 2;
+        if (g.degree(i) > 0) {
+            num += g.degree(i);
+            num /= 2;
+        }
     }
     return num;
 
@@ -50,12 +52,12 @@ int num_large_scc(std::vector<int> lowlink, int size) {
 
     std::sort(lowlink.begin(), lowlink.end());
 
-    int limit = size;
+    int limit = size; // How big the sccs have to be
 
     int curr = lowlink[0];
     int count = 0;
     int out = 0;
-    bool begin = true;
+
     for (int i : lowlink) {
         if (curr == i) {
             count++;
@@ -72,6 +74,34 @@ int num_large_scc(std::vector<int> lowlink, int size) {
         out++;
     }
     return out;
+}
+
+std::vector<int> purge_small_ll(std::vector<int> lowlink, int size) {
+    // Replace the sccs that are too small with -1;
+    int s = (int) lowlink.size();
+
+    int limit = size; // How big the sccs have to be
+
+    int curr = lowlink[0];
+    int count = 0;
+    std::vector<int> survivors(s, 0);
+
+    for (int i : lowlink) {
+        if (i == -1) {
+            continue;
+        }
+        survivors[i]++;
+    }
+    for (int i = 0; i < s; i++) {
+        if (lowlink[i] == -1) {
+            continue;
+        }
+        // Not greater than the limit
+        if (survivors[lowlink[i]] <= limit) {
+            lowlink[i] = -1;
+        }
+    }
+    return lowlink;
 }
 
 std::vector<int> tarjans(const Graph& g) {

@@ -31,6 +31,8 @@ Position::Position(std::vector<std::string> csv_entry) {
 }
 
 void Position::build_(std::string fen) {
+    material_black = 0;
+    material_white = 0;
     num_pieces = 0;
     num_pieces_white = 0;
     num_pieces_black = 0;
@@ -51,9 +53,11 @@ void Position::build_(std::string fen) {
         Piece p(c);
         if (p.color == DARK) {
             num_pieces_black++;
+            material_black += p.material;
         }
         else {
             num_pieces_white++;
+            material_white += p.material;
         }
         num_pieces++;
         board[pos] = p;
@@ -62,6 +66,7 @@ void Position::build_(std::string fen) {
 }
 
 Position::Piece::Piece(char c) {
+    identifier = c;
     if (islower(c)) {
         color = DARK;
     }
@@ -74,32 +79,41 @@ Position::Piece::Piece(char c) {
     switch (c) {
         case 'r':
             type = ROOK;
+            material = 5;
             break;
         case 'n':
             type = KNIGHT;
+            material = 3;
             break;
         case 'b':
             type = BISHOP;
+            material = 3;
             break;
         case 'q':
             type = QUEEN;
+            material = 9;
             break;
         case 'k':
             type = KING;
+            material = 0;
             break;
         case 'p':
             type = PAWN;
+            material = 1;
             break;
         default:
             type = NONE;
+            material = 0;
             break;
     }
     
 }
 
 Position::Piece::Piece() {
+    identifier = '.';
     type = NONE;
     color = -1;
+    material = 0;
 }
 
 int Position::toIndex(std::string square) const {

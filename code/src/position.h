@@ -62,6 +62,8 @@ public:
             enum PieceType {NONE, PAWN, BISHOP, KNIGHT, ROOK, KING, QUEEN};
             PieceType type;
             bool color;
+            char identifier;
+            int material;
             
     };
 
@@ -78,6 +80,8 @@ public:
     int num_pieces;
     int num_pieces_white;
     int num_pieces_black;
+    int material_white;
+    int material_black;
 
     int toIndex(char rank, char file) const;
     int toIndex(std::string square) const;
