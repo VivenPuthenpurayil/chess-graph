@@ -29,6 +29,8 @@ Image get_position_image(Position & p);
 */
 void draw_edges(Graph & g, Image & base, int color);
 
+void draw_position(Position & p, Image & base);
+
 void color_piece(Image & i, int color);
 
 Image get_piece_image(Position::Piece & p);

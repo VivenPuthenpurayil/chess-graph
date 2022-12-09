@@ -102,11 +102,12 @@ int main(int argc, char **argv) {
         output.writeToFile(outfile);
 
         */
-        output = get_position_image(p);
+        output.readFromFile("../../images/chessboard.png");
         draw_edges(white_support, output, 0);
         draw_edges(black_support, output, 240);
         draw_edges(white_attack, output, 60); // Red white attack edges
         draw_edges(black_attack, output, 180);
+        draw_position(p, output);
         outfile = outfolder + "position" + std::to_string(i) + ".png"; 
         output.writeToFile(outfile);
 

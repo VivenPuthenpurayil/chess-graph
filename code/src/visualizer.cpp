@@ -21,6 +21,26 @@ void display_position(Position & p) {
 
 }
 
+void draw_position(Position & p, Image & base) {
+    StickerSheet sheet(base, 64);
+
+    for(size_t i = 0; i < 64; i++) {
+        
+        if (p.board[i].type == Position::Piece::NONE) {
+            continue;
+        }
+        Image piece = get_piece_image(p.board[i]);
+
+
+        int x = (i % 8);
+        int y = ((i - x) / 8);
+
+        sheet.addSticker(piece, x * 60 + 8, y * 60 + 8);
+    }
+
+    base = sheet.render();
+}
+
 Image get_position_image(Position & p) {
     Image board; board.readFromFile("../../images/chessboard.png");
     board.resize(480, 480);
