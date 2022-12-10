@@ -27,6 +27,7 @@ public:
     std::list<int> neighbors(int v) const;      // List of both in and out neighbors
 
     bool edgeExists(int v1, int v2) const;
+    bool undirectedEdgeExists(int v1, int v2) const;  // Checks if there is an edge going from v1 to v2 or v2 to v1
     int weight(int v1, int v2) const;           // weight of the edge from v1 to v2
 
     int degree(int v) const;                    // This is the sum of in + out, however this means we are double counting bidirectional edges.
