@@ -167,14 +167,17 @@ std::vector<std::vector<int>> weaklyconnected(const Graph& g){  //might need und
         if(!visited[i]){
             std::vector<int> c;
             findConnected(i,visited,c,g);
-            components.push_back(c);
-
+            for (auto i : c) {
+            }
+            if (!c.empty()) {
+                components.push_back(c);
+            }
         }
     }
     return components;
 }
 
-void findConnected(int node, std::vector<bool>visited, std::vector<int> component, Graph g){
+void findConnected(int node, std::vector<bool>& visited, std::vector<int>& component, Graph g){
     visited[node] = true;
     component.push_back(node);
     for(auto i:g.neighbors(node)){

@@ -17,25 +17,25 @@ TEST_CASE("test Position::default")
 
 }
 
-TEST_CASE("test Position::fromFile")
-{
-	std::ifstream file("../tests/data/preprocessed.txt");
-    std::string line;
-	std::getline(file, line);
+// TEST_CASE("test Position::fromFile")
+// {
+// 	std::ifstream file("../tests/data/preprocessed.txt");
+//     std::string line;
+// 	std::getline(file, line);
 
-	std::vector<std::string> data;
-    SplitString(line, ',', data);
+// 	std::vector<std::string> data;
+//     SplitString(line, ',', data);
 
-	file.close();
+// 	file.close();
 
-	Position pos(data);
-	REQUIRE(pos.num_pieces == 29);
-	Position::Piece N = pos.board[pos.toIndex("g5")];
-	REQUIRE((N.type == Position::Piece::KNIGHT && N.color == LIGHT));
+// 	Position pos(data);
+// 	REQUIRE(pos.num_pieces == 29);
+// 	Position::Piece N = pos.board[pos.toIndex("g5")];
+// 	REQUIRE((N.type == Position::Piece::KNIGHT && N.color == LIGHT));
 
-	Position::Piece q = pos.board[pos.toIndex("b6")];
+// 	Position::Piece q = pos.board[pos.toIndex("b6")];
 
-	REQUIRE((q.type == Position::Piece::QUEEN && q.color == DARK));
+// 	REQUIRE((q.type == Position::Piece::QUEEN && q.color == DARK));
 
 
-}
+// }

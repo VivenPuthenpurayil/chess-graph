@@ -35,20 +35,20 @@ TEST_CASE("test BuildSupportGraph::simple")
 
 }
 
-TEST_CASE("test BuildSupportGraph::position from file") 
-{
-    std::ifstream file("../tests/data/preprocessed.txt");
-    std::string line;
-	std::getline(file, line);
+// TEST_CASE("test BuildSupportGraph::position from file") 
+// {
+//     std::ifstream file("../tests/data/preprocessed.txt");
+//     std::string line;
+// 	std::getline(file, line);
 
-	std::vector<std::string> data;
-    SplitString(line, ',', data);
+// 	std::vector<std::string> data;
+//     SplitString(line, ',', data);
 
-    file.close();
+//     file.close();
 
-	Position p(data);
-    Graph white_support = generateSupport(p, LIGHT);
-    Graph black_support = generateSupport(p, DARK);
+// 	Position p(data);
+//     Graph white_support = generateSupport(p, LIGHT);
+//     Graph black_support = generateSupport(p, DARK);
 
-}
+// }
 
