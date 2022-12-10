@@ -158,3 +158,30 @@ void tarjans_(int v, const Graph& g, std::vector<int> & lowlink, std::stack<int>
         }
     }
 }
+
+std::vector<std::vector<int>> weaklyconnected(const Graph& g){  //might need undirected
+    std::vector<std::vector<int>> components;
+    unsigned size = g.num_verticies();
+    std::vector<bool> visited(size,false);
+    for(unsigned i=0;i<size;i++){
+        if(!visited[i]){
+            std::vector<int> c;
+            findConnected(i,visited,c,g);
+            components.push_back(c);
+
+        }
+    }
+    return components;
+}
+
+void findConnected(int node, std::vector<bool>visited, std::vector<int> component, Graph g){
+    visited[node] = true;
+    component.push_back(node);
+    for(auto i:g.neighbors(node)){
+        if(!(visited[i])){
+            findConnected(i,visited,component,g);
+        }
+    }
+
+}
+

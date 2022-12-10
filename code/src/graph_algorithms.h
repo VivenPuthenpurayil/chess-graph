@@ -22,3 +22,6 @@ float average_degree(const Graph& g);
 int max_degree(const Graph& g);
 
 int num_edges(const Graph& g); 
+
+std::vector<std::vector<int>> weaklyconnected(const Graph& g);
+void findConnected(int node, std::vector<bool>visited, std::vector<int> component, Graph g);
