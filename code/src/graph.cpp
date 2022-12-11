@@ -4,6 +4,7 @@
 
 Graph::Graph(int num_verticies) : num_verticies_(num_verticies), num_edges_(0) {
     adjacency_matrix_ = std::vector<std::vector<int>>(num_verticies, std::vector<int>(num_verticies, 0));
+    vertex_labels_ = std::vector<int>(num_verticies, 0);
 }
 
 Graph Graph::g_union(Graph & g1, Graph & g2) {
@@ -21,10 +22,19 @@ Graph Graph::g_union(Graph & g1, Graph & g2) {
             }
             out.adjacency_matrix_[i][j] = std::max(g1.adjacency_matrix_[i][j], g2.adjacency_matrix_[i][j]);
         }
+        out.vertex_labels_[i] = std::max(g1.vertex_labels_[i], g2.vertex_labels_[i]);
     }
 
     return out;
 
+}
+
+void Graph::labelVertex(int v, int label) {
+    vertex_labels_[v] = label;
+}
+
+int Graph::getLabel(int v) const {
+    return vertex_labels_[v];
 }
 
 void Graph::insertEdge(int v1, int v2) {

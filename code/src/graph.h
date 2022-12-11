@@ -17,6 +17,9 @@ public:
 
     static Graph g_union(Graph & g1, Graph & g2); // Union of two graphs
 
+    void labelVertex(int v, int label);         // Assigns a value to a vertex
+    int getLabel(int v) const; 
+
     void insertEdge(int v1, int v2);            // Default implementation where weight is 1
     void insertEdge(int v1, int v2, int weight);
     void removeEdge(int v1, int v2);
@@ -42,5 +45,6 @@ private:
     std::vector<std::vector<int>> adjacency_matrix_;
     const int num_verticies_;
     int num_edges_;
+    std::vector<int> vertex_labels_;
 
 };

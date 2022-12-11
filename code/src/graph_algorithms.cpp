@@ -159,6 +159,30 @@ void tarjans_(int v, const Graph& g, std::vector<int> & lowlink, std::stack<int>
     }
 }
 
+
+int count_hanging_pieces(const Graph& attack, const Graph& support) {
+    int num = 0;
+    for (int i = 0; i < attack.num_verticies(); i++) {
+        if (attack.in_degree(i) > 0) { // Pieces under attack 
+            if (support.in_degree(i) < attack.in_degree(i)) {
+                num++; // The piece is hanging
+            }
+        }
+    }
+    return num;
+}
+
+int count_undefended_defenders(const Graph& support) {
+    int num = 0;
+    for (int i = 0; i < support.num_verticies(); i++) {
+        if ((support.getLabel(i) != 0 && support.in_degree(i) < 1))  {// There is a piece here for this graph
+            num++;
+        }
+    }
+    return num;
+}
+
+
 std::vector<std::vector<int>> weaklyconnected(const Graph& g){  //might need undirected
     std::vector<std::vector<int>> components;
     unsigned size = g.num_verticies();
@@ -268,3 +292,4 @@ bool isEulerian(Graph g, std::vector<int> elems, std::vector<std::list<int>> adj
     return true;
 }
  
+

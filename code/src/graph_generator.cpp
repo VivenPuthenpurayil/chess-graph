@@ -35,6 +35,8 @@ Graph generateSupport(Position pos, bool color) {
 
         if (pos.board[t].type != Position::Piece::NONE && (pos.board[t].color == color && pos.board[f].color == color)) {
             output.insertEdge(f, t); // Directed Edge
+            output.labelVertex(f, pos.board[f].material);
+            output.labelVertex(t, pos.board[t].material);
         }
         
     }
@@ -67,6 +69,8 @@ Graph generateAttack(Position pos, bool color) {
 
         if (pos.board[t].type != Position::Piece::NONE && (pos.board[t].color != pos.board[f].color) && (pos.board[t].color == !color)) {
             output.insertEdge(f, t); // Directed Edge
+            output.labelVertex(f, pos.board[f].material);
+            output.labelVertex(t, pos.board[t].material);
         }
         
     }

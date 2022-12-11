@@ -1,5 +1,6 @@
 #pragma once
 #include "graph.h"
+#include "position.h"
 #include <map>
 #include <stack>
 #include <iostream>
@@ -23,6 +24,11 @@ int max_degree(const Graph& g);
 
 int num_edges(const Graph& g); 
 
+
+int count_undefended_defenders(const Graph& support);
+
+int count_hanging_pieces(const Graph& attack, const Graph& support);
+
 std::vector<std::vector<int>> weaklyconnected(const Graph& g);
 
 void findConnected(int node, std::vector<bool>& visited, std::vector<int>& component, Graph g);
@@ -32,3 +38,4 @@ std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> co
 std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component);
 
 bool isEulerian(Graph g, std::vector<int> elems, std::vector<std::list<int>> adj);
+
