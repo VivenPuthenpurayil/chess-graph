@@ -9,21 +9,55 @@
 #include "graph_algorithms.h"
 #include "graph_generator.h"
 
-int main()
+int main(int argc, char **argv)
 {
     // Parse 500 games
-    std::ifstream file("../../data/carlsen_preprocessed.txt");
+    InputParser input(argc, argv);
+    int num_positions = 0;
+
+    if (!input.cmdOptionExists("-n")) {
+        std::cerr << "Please specify number of positions to analyze using -n" << std::endl;
+        return 1;
+    }
+    else {
+        num_positions = std::stoi(input.getCmdOption("-n"));
+    }
+
+    std::ifstream infile;
+    std::ofstream outfile;
+
+    if (!input.cmdOptionExists("-i")) {
+        std::cerr << "Please specify input file using -i" << std::endl;
+        return 1;
+    }
+    else {
+        std::string path = input.getCmdOption("-i");
+        infile.open(path);
+    }
+
+    if (input.cmdOptionExists("-o")) {
+        std::string path = input.getCmdOption("-o");
+        outfile.open(path);
+    }
+    else {
+        outfile.open("../../output/out.txt");
+    }
+
+    
 
     std::vector<float> evaluation;
+    std::vector<int> result;
     std::vector<std::vector<float>> characteristics;
     
     std::vector<float> positionCharacteristics;
 
-    const int num_positions = 2000;
-
+    
+    outfile << " Graph # |" << " Result |" << " Evaluation |" << "Characteristics" << "\n"; // Label characteristics later;
     for (int i = 0; i < num_positions; i++) {
+        outfile << "Graph #" << i + 1 << "";
+
         std::string line;
-        std::getline(file, line);
+        std::getline(infile, line);
 
         std::vector<std::string> data;
         SplitString(line, ',', data);
@@ -31,6 +65,7 @@ int main()
         Position pos(data);
 
         evaluation.push_back(pos.evaluation / 100);
+        result.push_back(pos.result);
         
         Graph b_support = generateSupport(pos, DARK);
         Graph w_support = generateSupport(pos, LIGHT);
@@ -112,7 +147,6 @@ int main()
         }
         */
 
-
         // Position
         white_ll = tarjans(w_position);
         black_ll = tarjans(b_position);
@@ -128,15 +162,10 @@ int main()
 
             positionCharacteristics.push_back(white - black);
         }
-
-       
-
-
-
+    
         // Add the entire characterstics of the graph to the thing.
         characteristics.push_back(positionCharacteristics);
         positionCharacteristics.clear();
-
 
 
         /**
@@ -164,17 +193,23 @@ int main()
 
     // Run + Output Linear Regression Results
     // Loop through the characteristics for the first position.
+
+    //std::vector<float> analysis_vec = evaluation;
+    std::vector<float> result2(result.begin(), result.end());
+
     for (int i = 0; i < (int) characteristics[0].size(); i++) {
         std::vector<float> characteristic; // Representing one characteristic for all positions
         for (int j = 0; j < num_positions; j++) {
             characteristic.push_back(characteristics[j][i]);
         }
-        float r2 = LinearRegression(characteristic, evaluation);
+        float eval_r2 = LinearRegression(characteristic, evaluation);
+        float result_r2 = LinearRegression(characteristic, result2);
 
-        std::cout << r2 << " " << LinearRegression(evaluation, characteristic) << "\n";
+        std::cout << eval_r2 << " " << result_r2 << "\n";
     }
     
-    file.close();
+    infile.close();
+    outfile.close();
 
     return 0;
 }

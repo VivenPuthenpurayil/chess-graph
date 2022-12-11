@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
         outfolder = input.getCmdOption("-o");
     }
     else {
-        outfolder = "../output/";
+        outfolder = "../../output/";
     }
     
     // Default values
