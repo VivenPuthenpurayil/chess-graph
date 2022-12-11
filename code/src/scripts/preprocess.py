@@ -125,7 +125,8 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         
         for move in moves:
             f.write(str(move) + ",")
-        f.write(str(score) + "\n")
+        f.write(str(score) + ",")
+        f.write(str(result[0] + "\n"))
         
         f.close()
     
