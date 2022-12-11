@@ -90,23 +90,6 @@ TEST_CASE("test eulerian::2 connected components first")
     g.insertEdge(6, 7, 1);
     g.insertEdge(7, 5, 1);
 
-
-    // g.insertEdge(5, 6, 1);
-    // g.insertEdge(6, 7, 1);
-    // g.insertEdge(6, 9, 1);
-    // g.insertEdge(7, 8, 1);
-    // g.insertEdge(8, 5, 1);
-    // g.insertEdge(8, 6, 1);
-    // g.insertEdge(9, 8, 1);
-
-    //   g.insertEdge(0, 1, 1);
-    // g.insertEdge(1, 2, 1);
-    // g.insertEdge(1, 4, 1);
-    // g.insertEdge(2, 3, 1);
-    // g.insertEdge(3, 0, 1);
-    // g.insertEdge(3, 1, 1);
-    // g.insertEdge(4, 3, 1);
-
     std::vector<std::vector<int>> components = weaklyconnected(g);
 
     REQUIRE(components == std::vector<std::vector<int>>{{ 0, 1, 2, 3, 4 }, { 5, 6, 7 }});
@@ -131,8 +114,6 @@ TEST_CASE("test eulerian::2 connected components second")
     g.insertEdge(6, 3, 1);
     g.insertEdge(6, 4, 1);
     g.insertEdge(7, 6, 1);
-
-   
 
     std::vector<std::vector<int>> components = weaklyconnected(g);
 
@@ -176,8 +157,39 @@ TEST_CASE("test eulerian1D::hard")
 
     std::vector<std::vector<int>> components = weaklyconnected(g);
 
-    std::vector<std::list<int>> adj =  makeEulerianAdj(g, components[0]);
+    REQUIRE(components == std::vector<std::vector<int>>{{ 0, 1, 2, 3, 4, 5 }});
     
-    REQUIRE(eulerian(g, adj, components) == std::vector<std::vector<int>>{{ 0, 2, 5, 4, 5, 3, 5, 2, 3, 4, 3, 2, 1, 4, 1, 3, 1, 2, 0, 1, 0 }});
+    REQUIRE(eulerian(g, components) == std::vector<std::vector<int>>{{ 0, 2, 5, 4, 5, 3, 5, 2, 3, 4, 3, 2, 1, 4, 1, 3, 1, 2, 0, 1, 0 }});
+
+}
+
+
+TEST_CASE("test eulerian::3D connected components second")
+{
+    Graph g(12);
+    g.insertEdge(0, 1, 1);
+    g.insertEdge(1, 2, 1);
+    g.insertEdge(2, 0, 1);
+
+    g.insertEdge(3, 4, 1);
+    g.insertEdge(4, 5, 1);
+    g.insertEdge(4, 7, 1);
+    g.insertEdge(5, 6, 1);
+    g.insertEdge(6, 3, 1);
+    g.insertEdge(6, 4, 1);
+    g.insertEdge(7, 6, 1);
+
+    g.insertEdge(8, 9, 1);
+    g.insertEdge(9, 10, 1);
+    g.insertEdge(10, 11, 1);
+    g.insertEdge(11, 8, 1);
+
+    std::vector<std::vector<int>> components = weaklyconnected(g);
+
+    REQUIRE(components == std::vector<std::vector<int>>{{ 0, 1, 2 }, { 3, 4, 5, 6, 7 }, {8, 9, 10, 11}});
+
+    std::vector<std::vector<int>> eul = eulerian(g, components);
+
+	REQUIRE(eul == std::vector<std::vector<int>>{{ 0, 1, 2, 0 }, { 3, 4, 7, 6, 4, 5, 6, 3 },  {8, 9, 10, 11, 8}});
 
 }
