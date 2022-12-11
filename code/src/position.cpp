@@ -5,6 +5,10 @@ Position::Position() {
     // Create position with default fen (starting position)
     evaluation = 0;
     build_("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+    std::vector<std::string> move_strings {"a1b1", "a1a2", "b1d2", "b1a3", "b1c3", "c1b2", "c1d2", "d1c1", "d1e1", "d1c2", "d1d2", "d1e2", "e1d1", "e1f1", "e1d2", "e1e2", "e1f2", "f1e2", "f1g2", "g1e2", "g1f3", "g1h3", "h1g1", "h1h2", "a2b3", "b2a3", "b2c3", "c2b3", "c2d3", "d2c3", "d2e3", "e2d3", "e2f3", "f2e3", "f2g3", "g2f3", "g2h3", "h2g3", "a7b6", "b7a6", "b7c6", "c7b6", "c7d6", "d7c6", "d7e6", "e7d6", "e7f6", "f7e6", "f7g6", "g7f6", "g7h6", "h7g6", "a8a7", "a8b8", "b8a6", "b8c6", "b8d7", "c8b7", "c8d7", "d8c7", "d8d7", "d8e7", "d8c8", "d8e8", "e8d7", "e8e7", "e8f7", "e8d8", "e8f8", "f8e7", "f8g7", "g8f6", "g8h6", "g8e7", "h8h7", "h8g8"};
+    for (auto & s : move_strings) {
+        legal_moves.push_back(Position::Move(s));
+    }
 }
 
 Position::Position(std::string fen) {
@@ -96,7 +100,7 @@ Position::Piece::Piece(char c) {
             break;
         case 'k':
             type = KING;
-            material = 0;
+            material = 100;
             break;
         case 'p':
             type = PAWN;
