@@ -52,9 +52,9 @@ int main(int argc, char **argv)
     std::vector<float> positionCharacteristics;
 
     
-    outfile << " Graph # |" << " Result |" << " Evaluation |" << "Characteristics" << "\n"; // Label characteristics later;
+    outfile << " Graph # |" << " Result |" << " Evaluation |" << " Characteristics" << "\n"; // Label characteristics later;
     for (int i = 0; i < num_positions; i++) {
-        outfile << "Graph #" << i + 1 << "";
+        outfile << i + 1 << ","; // Graph Number
 
         std::string line;
         std::getline(infile, line);
@@ -66,6 +66,7 @@ int main(int argc, char **argv)
 
         evaluation.push_back(pos.evaluation / 100);
         result.push_back(pos.result);
+        outfile << pos.result << "," << pos.evaluation / 100 << ",";
         
         Graph b_support = generateSupport(pos, DARK);
         Graph w_support = generateSupport(pos, LIGHT);
@@ -165,6 +166,11 @@ int main(int argc, char **argv)
     
         // Add the entire characterstics of the graph to the thing.
         characteristics.push_back(positionCharacteristics);
+
+        for (auto c : positionCharacteristics) {
+            outfile << c << ",";
+        }
+        outfile << std::endl;
         positionCharacteristics.clear();
 
 
