@@ -32,7 +32,7 @@ Position::Position(std::vector<std::string> csv_entry) {
         legal_moves.push_back(Position::Move(*it++));
     }
     evaluation = std::stof(*it++);
-    result = std::stoi(*it);
+    result = std::stof(*it);
 }
 
 void Position::build_(std::string fen) {

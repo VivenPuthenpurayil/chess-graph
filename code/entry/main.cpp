@@ -108,6 +108,20 @@ int main(int argc, char **argv)
 
         positionCharacteristics.push_back(white - black);
 
+        // Number of edges
+        white = w_support.num_edges();
+        black = b_support.num_edges();
+        positionCharacteristics.push_back(white - black);
+
+        white = w_attack.num_edges();
+        black = b_attack.num_edges();
+        positionCharacteristics.push_back(white - black);
+
+        white = w_position.num_edges();
+        black = b_position.num_edges();
+        positionCharacteristics.push_back(white - black);
+
+
         // Now do SCCS
         std::vector<int> white_ll(64); // White lowlink
         std::vector<int> black_ll(64); // Black lowlink

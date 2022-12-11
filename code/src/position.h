@@ -75,7 +75,7 @@ public:
     /**
       * Did white win or not.
       */
-    int result;
+    float result;
 
     /**
       *

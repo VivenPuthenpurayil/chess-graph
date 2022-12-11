@@ -46,7 +46,7 @@ def select_games(infile: str = "data/lichess_db_standard_rated_2013-01.pgn") -> 
             dif < 200 -- check elo difference is less than 200
             not tie -- check game ends with victor
         '''
-        if (elo > 1200 and term != "Time forfeit" and elo2 > 1200 and diff < 200 and not tie):
+        if (elo > 1200 and term != "Time forfeit" and elo2 > 1200 and diff < 200): # and not tie
             game_locations.append(game_location)
 
         i += 1
@@ -93,7 +93,7 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         result = game.headers["Result"]
 
         if (GET_EVAL == True):
-            analysis = engine.analyse(board, chess.engine.Limit(depth=15)) # Change depth or time=1 to set how long it takes to run this
+            analysis = engine.analyse(board, chess.engine.Limit(depth=12)) # Change depth or time=1 to set how long it takes to run this
             # 4 mins for 200 games on depth=17
             score = analysis["score"].white()
             #score = score.wdl(model='sf').expectation()
@@ -125,7 +125,13 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
             f.write(str(move) + ",")
             
         f.write(str(score) + ",")
-        f.write(str(result[0] + "\n"))
+        
+        if result == "1/2-1/2":
+            f.write(str(".5"))
+        else:  
+            f.write(str(result[0]))
+        
+        f.write("\n")
         
         f.close()
     
