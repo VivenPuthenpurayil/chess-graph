@@ -188,3 +188,58 @@ void findConnected(int node, std::vector<bool>& visited, std::vector<int>& compo
 
 }
 
+std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::list<int>>& adj, std::vector<std::vector<int>> components) {
+
+    std::vector<std::vector<int>> allCycles;
+
+    for (auto each : components) {
+        std::map<int,int> numEdges;
+    
+        for (unsigned i = 0; i < adj.size(); i++) {
+            numEdges[i] = adj[i].size();
+        }
+    
+        if (!adj.size()) {
+            allCycles.push_back(std::vector<int>());
+        }
+    
+        std::stack<int> path;
+    
+        std::vector<int> cycle;
+    
+        path.push(each[0]);
+        int curr = each[0];
+    
+        while (!path.empty()) {
+            if (numEdges[curr]) {
+                path.push(curr);
+    
+                int next = adj[curr].back();
+    
+                numEdges[curr]--;
+                adj[curr].pop_back();
+
+                curr = next;
+            } else {
+                cycle.push_back(curr);
+    
+                curr = path.top();
+                path.pop();
+            }
+        }
+    
+        reverse(cycle.begin(), cycle.end());
+        allCycles.push_back(cycle);
+    }
+    
+    return allCycles;
+}
+
+std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component) {
+    std::vector<std::list<int>> adj;
+    for (auto each : component) {
+        adj.push_back(g.out_neighbors(each));
+    }
+    return adj;
+}
+
