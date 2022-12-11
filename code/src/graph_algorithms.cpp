@@ -292,4 +292,17 @@ bool isEulerian(Graph g, std::vector<int> elems, std::vector<std::list<int>> adj
     return true;
 }
  
+int numCycles(Graph g) {
+    std::vector<std::vector<int>> components = weaklyconnected(g);
 
+    std::vector<std::vector<int>> eul = eulerian(g, components);
+
+    int cycles = 0;
+    for (auto each : eul) {
+        if (!each.empty()) {
+            cycles++;
+        }
+    }
+    
+    return cycles;
+}
