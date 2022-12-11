@@ -188,36 +188,39 @@ void findConnected(int node, std::vector<bool>& visited, std::vector<int>& compo
 
 }
 
-std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::list<int>>& adj, std::vector<std::vector<int>> components) {
+std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> components) {
 
     std::vector<std::vector<int>> allCycles;
 
-    for (auto each : components) {
+    for (unsigned i = 0; i < components.size(); i++) {
         std::map<int,int> numEdges;
+        std::vector<std::list<int>> adj = makeEulerianAdj(g, components[i]);
     
         for (unsigned i = 0; i < adj.size(); i++) {
             numEdges[i] = adj[i].size();
         }
     
-        if (!adj.size()) {
+        if (!adj.size() || !isEulerian(g, components[i], adj)) {
             allCycles.push_back(std::vector<int>());
+            break;
         }
     
         std::stack<int> path;
     
         std::vector<int> cycle;
     
-        path.push(each[0]);
-        int curr = each[0];
+        path.push(components[i][0]);
+        int curr = components[i][0];
+        int first = components[i][0];
     
         while (!path.empty()) {
-            if (numEdges[curr]) {
+            if (numEdges[curr-first]) {
                 path.push(curr);
     
-                int next = adj[curr].back();
+                int next = adj[curr-first].back();
     
-                numEdges[curr]--;
-                adj[curr].pop_back();
+                numEdges[curr-first]--;
+                adj[curr-first].pop_back();
 
                 curr = next;
             } else {
@@ -243,3 +246,25 @@ std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component)
     return adj;
 }
 
+bool isEulerian(Graph g, std::vector<int> elems, std::vector<std::list<int>> adj) {
+    bool x = false;
+    bool y = false;
+    for (unsigned i = 0; i < adj.size(); i++) {
+
+        int out_degree = g.out_degree(elems[i]);
+        int in_degree = g.in_degree(elems[i]);
+ 
+        if (out_degree != in_degree) {
+            if (!x && out_degree - in_degree == 1) {
+                x = true;
+            } else if (!y && in_degree - out_degree == 1) {
+                y = true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+ 
