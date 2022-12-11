@@ -26,8 +26,6 @@ TEST_CASE("test WCC::easy 1")
 
 	REQUIRE(weaklyconnected(g) == std::vector<std::vector<int>>{{0,1,2,}});
 
-    REQUIRE(makeEulerianAdj(g, weaklyconnected(g)[0]) == std::vector<std::list<int>>{{0}} );
-
 }
 
 TEST_CASE("test WCC::easy 2")
