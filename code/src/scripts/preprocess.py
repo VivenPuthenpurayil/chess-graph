@@ -90,6 +90,8 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         fen = board.fen()
         
         score = 0
+        result = game.headers["Result"]
+        print(result[0])
         if (GET_EVAL == True):
             analysis = engine.analyse(board, chess.engine.Limit(depth=15)) # Change depth or time=1 to set how long it takes to run this
             # 4 mins for 200 games on depth=17
@@ -113,7 +115,7 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         #moves = whiteMoves + blackMoves
         
         f = open(outfile, 'a')
-        if (score.is_mate()):
+        if (GET_EVAL and score.is_mate()):
             score = "0"
             continue
         
