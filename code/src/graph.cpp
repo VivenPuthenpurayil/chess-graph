@@ -62,6 +62,10 @@ bool Graph::edgeExists(int v1, int v2) const {
     return std::abs(adjacency_matrix_[v1][v2]) >= 1;
 }
 
+bool Graph::undirectedEdgeExists(int v1, int v2) const {
+    return std::abs(adjacency_matrix_[v1][v2]) >= 1 || std::abs(adjacency_matrix_[v2][v1]) >= 1;
+}
+
 int Graph::weight(int v1, int v2) const {
     return adjacency_matrix_[v1][v2];
 }
