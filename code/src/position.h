@@ -73,6 +73,11 @@ public:
     float evaluation;
 
     /**
+      * Did white win or not.
+      */
+    int result;
+
+    /**
       *
       */
     std::list<Move> legal_moves;

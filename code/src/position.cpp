@@ -23,11 +23,12 @@ Position::Position(std::vector<std::string> csv_entry) {
     
     auto it = csv_entry.begin() + 1;
     // Second to last ele
-    while (it != (csv_entry.rbegin() + 1).base())
+    while (it != (csv_entry.rbegin() + 2).base())
     {
         legal_moves.push_back(Position::Move(*it++));
     }
-    evaluation = std::stof(*it);
+    evaluation = std::stof(*it++);
+    result = std::stoi(*it);
 }
 
 void Position::build_(std::string fen) {
