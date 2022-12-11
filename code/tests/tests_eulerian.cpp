@@ -10,16 +10,13 @@ using namespace std;
 
 TEST_CASE("test eulerian::empty")
 {
-    // Graph g1(4);
-    // REQUIRE(weaklyconnected(g1) == std::vector<std::vector<int>>{{ 0 }, { 1 }, { 2 }, { 3 }});
+    Graph g1(4);
 
-    Graph g2(0);
+    std::vector<std::vector<int>> components = weaklyconnected(g1);
 
-    std::vector<std::vector<int>> components = weaklyconnected(g2);
+    std::vector<std::list<int>> adj =  makeEulerianAdj(g1, components[0]);
 
-    std::vector<std::list<int>> adj =  makeEulerianAdj(g2, components[0]);
-
-    REQUIRE(eulerian(g2, adj, components) == std::vector<std::vector<int>>{});
+    REQUIRE(eulerian(g1, adj, components) == std::vector<std::vector<int>>{{ 0 }, { 1 }, { 2 }, { 3 }});
 }
 
 TEST_CASE("test eulerian::medium")
