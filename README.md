@@ -46,6 +46,8 @@ Then to run the visualizer you can do where the -n flag represents the number of
 
 ## Data
 All of the chess data we collect will be located in this folder
+
+
 Data Source: [Lichess](https://database.lichess.org/)
 
 ## Documents
