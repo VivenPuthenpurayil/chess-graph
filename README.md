@@ -2,10 +2,10 @@
 [Slides](https://docs.google.com/presentation/d/1TfvjVHeO4fC0OuBWD21Kz7FtHWPW0xUsqJKufKUEVmg/edit?usp=sharing) 
 
 
-Video: 
+Video 
 
 
-Inspiration: https://snap.stanford.edu/class/cs224w-2013/projects2013/cs224w-023-final.pdf
+[Inspiration](https://snap.stanford.edu/class/cs224w-2013/projects2013/cs224w-023-final.pdf)
 
 ## Preprocess Tutorial
 
@@ -46,6 +46,7 @@ Then to run the visualizer you can do where the -n flag represents the number of
 
 ## Data
 All of the chess data we collect will be located in this folder
+Data Source: [Lichess](https://database.lichess.org/)
 
 ## Documents
 Our signed team contract, our project description file, and our dev logs will be here along with other documents
