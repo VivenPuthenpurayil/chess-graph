@@ -48,6 +48,14 @@ int main(int argc, char **argv)
     std::vector<float> evaluation;
     std::vector<int> result;
     std::vector<std::vector<float>> characteristics;
+
+    std::vector<bool> whiteWinBrandes;
+    std::vector<bool> whiteWinBrandes2;
+    std::vector<bool> whiteMaterial;
+    std::vector<bool> whiteEdge;
+    std::vector<bool> whiteEdge2;
+
+
     
     std::vector<float> positionCharacteristics;
 
@@ -88,7 +96,37 @@ int main(int argc, char **argv)
         // Material Difference (SANITY CHECK EHRE)
         white = pos.material_white;
         black = pos.material_black;
+
+        whiteMaterial.push_back(white > black);
+
+
+
         positionCharacteristics.push_back(white - black);
+    
+    std::map<int, int> whitec = brandes(w_support);
+    std::map<int, int> blackc = brandes(b_support);
+
+    int whitem = 0;
+    int blackm = 0;
+    int whitem2 = 0;
+    int blackm2 = 0;
+
+    for (auto w: whitec) {
+        whitem += w.second;
+        if (w.second > whitem2) {
+            whitem2 = w.second;
+        }
+    }
+    for (auto b: blackc) {
+        blackm += b.second;
+        if (b.second > blackm2) {
+            blackm2 = b.second;
+        }
+    }
+
+
+    whiteWinBrandes.push_back(whitem >= blackm);
+    whiteWinBrandes2.push_back(whitem2 >= blackm2);
 
         // Average Support Degree
         white = average_degree(w_support);
@@ -112,6 +150,7 @@ int main(int argc, char **argv)
         white = w_support.num_edges();
         black = b_support.num_edges();
         positionCharacteristics.push_back(white - black);
+        whiteEdge.push_back((white - black) > 0);
 
         white = w_attack.num_edges();
         black = b_attack.num_edges();
@@ -120,6 +159,7 @@ int main(int argc, char **argv)
         white = w_position.num_edges();
         black = b_position.num_edges();
         positionCharacteristics.push_back(white - black);
+        whiteEdge2.push_back((white - black) > 0);
 
 
         // Now do SCCS
@@ -230,6 +270,54 @@ int main(int argc, char **argv)
     
     infile.close();
     outfile.close();
+    int correct = 0;
+    int correct2 = 0;
+    int correct3 = 0;
+    int correct4 = 0;
+    int correct5 = 0;
+
+    for (unsigned i = 0; i < whiteWinBrandes.size(); i++) {
+        if (result[i] == 1 && whiteWinBrandes[i]) {
+            correct += 1;
+        }
+        if (result[i] == 0 && !whiteWinBrandes[i]) {
+            correct += 1;
+        } 
+        if (result[i] == 1 && whiteWinBrandes2[i]) {
+            correct2 += 1;
+        }
+        if (result[i] == 0 && !whiteWinBrandes2[i]) {
+            correct2 += 1;
+        }
+
+
+        if (result[i] == 1 && whiteMaterial[i]) {
+            correct3 += 1;
+        }
+        if (result[i] == 0 && !whiteMaterial[i]) {
+            correct3 += 1;
+        }   
+
+        if (result[i] == 1 && whiteEdge[i]) {
+            correct4 += 1;
+        }
+        if (result[i] == 0 && !whiteEdge[i]) {
+            correct4 += 1;
+        }
+
+        if (result[i] == 1 && whiteEdge2[i]) {
+            correct5 += 1;
+        }
+        if (result[i] == 0 && !whiteEdge2[i]) {
+            correct5 += 1;
+        }             
+    }
+    std::cout << "The total amount correct predictions is: " << correct << " out of " << whiteWinBrandes.size() << " guesses giving a accuracy rate of: " << (float)(correct)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The total amount correct predictions is: " << correct2 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct2)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The total amount correct predictions is: " << correct3 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct3)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The total amount correct predictions is: " << correct4 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct4)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The total amount correct predictions is: " << correct5 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct5)/ (float)(whiteWinBrandes.size()) << std::endl;
+
 
     return 0;
 }
