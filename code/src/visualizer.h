@@ -34,3 +34,5 @@ void draw_position(Position & p, Image & base);
 void color_piece(Image & i, int color);
 
 Image get_piece_image(Position::Piece & p);
+
+Image get_brandes_image(Position & p, std::vector<int> colorscheme);

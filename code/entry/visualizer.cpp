@@ -116,10 +116,17 @@ int main(int argc, char **argv) {
         outfile = outfolder + "sccs" + std::to_string(i) + ".png"; 
         output.writeToFile(outfile);
 
+        std::map<int, int> betweness_centrality = brandes(union_support);
+    
+        colorscheme.clear();
+        for (auto & v : betweness_centrality) {
+            colorscheme.push_back(v.second);
+        }
 
+        output = get_brandes_image(p, colorscheme);
 
-
-
+        outfile = outfolder + "brandes" + std::to_string(i) + ".png"; 
+        output.writeToFile(outfile);
     }
 
     return 0;
