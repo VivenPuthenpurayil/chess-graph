@@ -54,7 +54,7 @@ int main(int argc, char **argv)
     std::vector<bool> whiteMaterial;
     std::vector<bool> whiteEdge;
     std::vector<bool> whiteEdge2;
-
+    std::vector<bool> eulerianPredictor;
 
     
     std::vector<float> positionCharacteristics;
@@ -102,6 +102,11 @@ int main(int argc, char **argv)
 
 
         positionCharacteristics.push_back(white - black);
+
+
+    int wE = numCycles(w_support);
+    int bE = numCycles(b_support);
+    eulerianPredictor.push_back(wE < bE);
     
     std::map<int, int> whitec = brandes(w_support);
     std::map<int, int> blackc = brandes(b_support);
@@ -275,8 +280,37 @@ int main(int argc, char **argv)
     int correct3 = 0;
     int correct4 = 0;
     int correct5 = 0;
+    int correct6 = 0;
+    int aggregate = 0;
 
     for (unsigned i = 0; i < whiteWinBrandes.size(); i++) {
+        int sub = 0;
+        if (whiteWinBrandes[i]) {
+            sub += 1;
+        }
+        if (whiteWinBrandes2[i]) {
+            sub += 1;
+        }
+        if (whiteMaterial[i]) {
+            sub += 1;
+        }
+
+        if (whiteEdge[i]) {
+            sub += 1;
+        }
+
+        if (whiteEdge2[i]) {
+            sub += 1;
+        }
+
+        if (eulerianPredictor[i]) {
+            sub += 1;
+        }
+
+        bool res = sub >= 3;
+
+
+
         if (result[i] == 1 && whiteWinBrandes[i]) {
             correct += 1;
         }
@@ -310,13 +344,30 @@ int main(int argc, char **argv)
         }
         if (result[i] == 0 && !whiteEdge2[i]) {
             correct5 += 1;
-        }             
+        }
+
+        if (result[i] == 1 && eulerianPredictor[i]) {
+            correct6 += 1;
+        }
+        if (result[i] == 0 && !eulerianPredictor[i]) {
+            correct6 += 1;
+        }
+
+        if (result[i] == 1 && res) {
+            aggregate += 1;
+        }
+        if (result[i] == 0 && !res) {
+            aggregate += 1;
+        }                
     }
     std::cout << "The total amount correct predictions is: " << correct << " out of " << whiteWinBrandes.size() << " guesses giving a accuracy rate of: " << (float)(correct)/ (float)(whiteWinBrandes.size()) << std::endl;
     std::cout << "The total amount correct predictions is: " << correct2 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct2)/ (float)(whiteWinBrandes.size()) << std::endl;
     std::cout << "The total amount correct predictions is: " << correct3 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct3)/ (float)(whiteWinBrandes.size()) << std::endl;
     std::cout << "The total amount correct predictions is: " << correct4 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct4)/ (float)(whiteWinBrandes.size()) << std::endl;
     std::cout << "The total amount correct predictions is: " << correct5 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct5)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The total amount correct predictions is: " << correct6 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct6)/ (float)(whiteWinBrandes.size()) << std::endl;
+
+    std::cout << "The total amount correct predictions is: " << aggregate << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(aggregate)/ (float)(whiteWinBrandes.size()) << std::endl;
 
 
     return 0;
