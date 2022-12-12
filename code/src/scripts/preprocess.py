@@ -46,7 +46,7 @@ def select_games(infile: str = "data/lichess_db_standard_rated_2013-01.pgn") -> 
             dif < 200 -- check elo difference is less than 200
             not tie -- check game ends with victor
         '''
-        if (elo > 1200 and term != "Time forfeit" and elo2 > 1200 and diff < 200): # and not tie
+        if (elo > 1200 and term != "Time forfeit" and elo2 > 1200 and diff < 200 and not tie): # and not tie
             game_locations.append(game_location)
 
         i += 1
@@ -66,7 +66,10 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
     if (GET_EVAL == True):
         path = Path(__file__).parents[3] / 'stockfish/stockfish_15_x64'
         engine = chess.engine.SimpleEngine.popen_uci(str(path.absolute()))
-    
+        
+    white_wins = 0
+    black_wins = 0
+    draws = 0
     # Location of the game
     for location in locations:
         board = None
@@ -128,13 +131,21 @@ def process_games(locations: List[int], infile: str = "data/lichess_db_standard_
         
         if result == "1/2-1/2":
             f.write(str(".5"))
+            draws += 1
         else:  
             f.write(str(result[0]))
+            if result[0] == "1":
+                white_wins += 1
+            else:
+                black_wins += 1
+            
         
         f.write("\n")
         
         f.close()
-    
+    print(draws)
+    print(white_wins)
+    print(black_wins)
     if engine:
         engine.quit()
     

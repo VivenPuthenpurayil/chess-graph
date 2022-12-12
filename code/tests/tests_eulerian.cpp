@@ -41,6 +41,35 @@ TEST_CASE("test eulerian::no eularian cycle")
 
 }
 
+TEST_CASE("test eulerian::2-D both not a eularian cycle")
+{
+    Graph g(9);
+    g.insertEdge(0, 1, 1);
+    g.insertEdge(0, 2, 1);
+    g.insertEdge(0, 3, 1);
+    g.insertEdge(1, 2, 1);
+    g.insertEdge(1, 3, 1);
+    g.insertEdge(2, 3, 1);
+
+    g.insertEdge(4, 5, 1);
+    g.insertEdge(5, 6, 1);
+    g.insertEdge(6, 7, 1);
+    g.insertEdge(7, 4, 1);
+    g.insertEdge(4, 8, 1);
+    g.insertEdge(6, 8, 1);
+
+    std::vector<std::vector<int>> components = weaklyconnected(g);
+
+    REQUIRE(components == std::vector<std::vector<int>>{{ 0, 1, 2, 3 }, { 4, 5, 6, 7, 8}});
+
+    std::vector<std::vector<int>> eul = eulerian(g, components);
+
+	REQUIRE(eul == std::vector<std::vector<int>>{{  }, {  }});
+
+    REQUIRE(numCycles(g) == 0);
+
+}
+
 TEST_CASE("test eulerian1D::easy")
 {
     Graph g(5);

@@ -15,6 +15,7 @@ std::map<int, int> brandes(const Graph& g) {
         std::map<int, std::vector<int>> p;
         std::map<int, int> ge;
         std::map<int, int> d;
+        
         // populate each map
         // p is a map of vertices to optimal pathways
 
@@ -25,15 +26,17 @@ std::map<int, int> brandes(const Graph& g) {
         }
         // set initial state for node currently being visisted 
         ge[v] = 1;
-        d[v] = 0;   
+        d[v] = 0;
 
         std::queue<int> q;
         q.push(v);
-        while (!q.empty()) {
+        while (!q.empty())
+        {
             int curr = q.front();
             q.pop();
             s.push(curr);
             std::list<int> w1 = g.neighbors(curr);
+
             for (int w : w1) {
                 //check if the node is being visited for the first time
                 if (d[w] < 0) {
@@ -49,22 +52,25 @@ std::map<int, int> brandes(const Graph& g) {
         }
 
         std::map<int, int> e;
+
         //return vertices in order of non -increasing distance from s
         for (int a = 0; a < g.num_verticies(); a++) {
             e[a] = 0;
         }
 
-        while (!s.empty()) {
+        while (!s.empty())
+        {
             int w = s.top();
             s.pop();
-            for (int ve : p[w]) {
-                e[ve] = e[ve] + (ge[ve]/ge[w]) * (1+e[w]);
+            for (int ve : p[w])
+            {
+                e[ve] = e[ve] + (ge[ve] / ge[w]) * (1 + e[w]);
             }
-            if ( w != v ) {
+            if (w != v)
+            {
                 c[w] = c[w] + e[w];
             }
         }
-    
     }
     return c;
 }
@@ -72,23 +78,17 @@ std::map<int, int> brandes(const Graph& g) {
 //Input graph g
 //Output float representing the average degree
 float average_degree(const Graph& g) {
-    float num = 0;
-    for (int i = 0; i < g.num_verticies(); i++) {
-        if (g.degree(i) > 0) {
-            num += g.degree(i);
-            num /= 2;
-        }
-    }
-    return num;
-
+    return ((float) g.num_edges()) / ((float) g.num_verticies()) * 2;
 }
 
 //Input graph g
 //Output integer representing the max degree
 int max_degree(const Graph& g) {
     int max = 0;
-    for (int i = 0; i < g.num_verticies(); i++) {
-        if (g.degree(i) > max) {
+    for (int i = 0; i < g.num_verticies(); i++)
+    {
+        if (g.degree(i) > max)
+        {
             max = g.degree(i);
         }
     }
@@ -100,17 +100,19 @@ int max_degree(const Graph& g) {
 int max_size_scc(std::vector<int> lowlink) {
 
     std::map<int, int> sizes;
-    for (int i : lowlink) {
+    for (int i : lowlink)
+    {
         sizes[i]++;
     }
 
-    int max_size = std::max_element(sizes.begin(), sizes.end(),  
-    [] (const std::pair<int, int> & p1, const std::pair<int, int> & p2) {
-        return p1.second < p2.second;}
-    )->second;
+    int max_size = std::max_element(sizes.begin(), sizes.end(),
+                                    [](const std::pair<int, int> &p1, const std::pair<int, int> &p2)
+                                    { return p1.second < p2.second; })
+                       ->second;
 
     return max_size;
 }
+
 
 //Input vector representing lowlinks
 //Output intger representing the number of strongly connected components
@@ -137,27 +139,33 @@ int num_large_scc(std::vector<int> lowlink, int size) {
     int count = 0;
     int out = 0;
 
-    for (int i : lowlink) {
-        if (curr == i) {
+    for (int i : lowlink)
+    {
+        if (curr == i)
+        {
             count++;
         }
-        else if (curr != i){
-            if (count > limit) {
+        else if (curr != i)
+        {
+            if (count > limit)
+            {
                 out++;
             }
             curr = i;
             count = 1;
         }
     }
-    if (count > limit) {
+    if (count > limit)
+    {
         out++;
     }
     return out;
 }
 
-std::vector<int> purge_small_ll(std::vector<int> lowlink, int size) {
+std::vector<int> purge_small_ll(std::vector<int> lowlink, int size)
+{
     // Replace the sccs that are too small with -1;
-    int s = (int) lowlink.size();
+    int s = (int)lowlink.size();
 
     int limit = size; // How big the sccs have to be
 
@@ -165,18 +173,23 @@ std::vector<int> purge_small_ll(std::vector<int> lowlink, int size) {
     int count = 0;
     std::vector<int> survivors(s, 0);
 
-    for (int i : lowlink) {
-        if (i == -1) {
+    for (int i : lowlink)
+    {
+        if (i == -1)
+        {
             continue;
         }
         survivors[i]++;
     }
-    for (int i = 0; i < s; i++) {
-        if (lowlink[i] == -1) {
+    for (int i = 0; i < s; i++)
+    {
+        if (lowlink[i] == -1)
+        {
             continue;
         }
         // Not greater than the limit
-        if (survivors[lowlink[i]] <= limit) {
+        if (survivors[lowlink[i]] <= limit)
+        {
             lowlink[i] = -1;
         }
     }
@@ -192,17 +205,19 @@ std::vector<int> tarjans(const Graph& g) {
     int id = 0;
 
     // For Tarjans
-    std::vector<int> lowlink (size, 0); // Store low link values of each node
-    std::stack<int> ll_stack; // store if they are on the tarjans stack
-    std::vector<bool> on_stack (size, false);
-    std::vector<int> ids (size, 0);
+    std::vector<int> lowlink(size, 0); // Store low link values of each node
+    std::stack<int> ll_stack;          // store if they are on the tarjans stack
+    std::vector<bool> on_stack(size, false);
+    std::vector<int> ids(size, 0);
 
     // For our DFS
-    std::vector<bool> visited (size, false);
+    std::vector<bool> visited(size, false);
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++)
+    {
         // Make sure we get every connected component
-        if (visited[i] == true) {
+        if (visited[i] == true)
+        {
             continue;
         }
         tarjans_(i, g, lowlink, ll_stack, on_stack, visited, id, ids);
@@ -210,42 +225,51 @@ std::vector<int> tarjans(const Graph& g) {
     return lowlink;
 }
 
-
-void tarjans_(int v, const Graph& g, std::vector<int> & lowlink, std::stack<int> & ll_stack, std::vector<bool> & on_stack, std::vector<bool> &visited, int & id, std::vector<int> & ids) {
+void tarjans_(int v, const Graph &g, std::vector<int> &lowlink, std::stack<int> &ll_stack, std::vector<bool> &on_stack, std::vector<bool> &visited, int &id, std::vector<int> &ids)
+{
     ll_stack.push(v);
     on_stack[v] = true;
     visited[v] = true;
     lowlink[v] = id;
     ids[v] = id++;
 
-    for(int n : g.out_neighbors(v)) {
-        if (visited[n] == false) {
+    for (int n : g.out_neighbors(v))
+    {
+        if (visited[n] == false)
+        {
             tarjans_(n, g, lowlink, ll_stack, on_stack, visited, id, ids);
         }
-        if (on_stack[n] == true) {
+        if (on_stack[n] == true)
+        {
             lowlink[v] = std::min(lowlink[v], lowlink[n]);
         }
     }
 
-    if (lowlink[v] == ids[v]) {
-        while (!ll_stack.empty()) {
+    if (lowlink[v] == ids[v])
+    {
+        while (!ll_stack.empty())
+        {
             int i = ll_stack.top();
             ll_stack.pop();
             lowlink[i] = ids[v];
             on_stack[i] = false;
-            if (i == v) {
+            if (i == v)
+            {
                 break;
             }
         }
     }
 }
 
-
-int count_hanging_pieces(const Graph& attack, const Graph& support) {
+int count_hanging_pieces(const Graph &attack, const Graph &support)
+{
     int num = 0;
-    for (int i = 0; i < attack.num_verticies(); i++) {
-        if (attack.in_degree(i) > 0) { // Pieces under attack 
-            if (support.in_degree(i) < attack.in_degree(i)) {
+    for (int i = 0; i < attack.num_verticies(); i++)
+    {
+        if (attack.in_degree(i) > 0)
+        { // Pieces under attack
+            if (support.in_degree(i) < attack.in_degree(i))
+            {
                 num++; // The piece is hanging
             }
         }
@@ -253,10 +277,13 @@ int count_hanging_pieces(const Graph& attack, const Graph& support) {
     return num;
 }
 
-int count_undefended_defenders(const Graph& support) {
+int count_undefended_defenders(const Graph &support)
+{
     int num = 0;
-    for (int i = 0; i < support.num_verticies(); i++) {
-        if ((support.getLabel(i) != 0 && support.in_degree(i) < 1))  {// There is a piece here for this graph
+    for (int i = 0; i < support.num_verticies(); i++)
+    {
+        if ((support.getLabel(i) != 0 && support.in_degree(i) < 1))
+        { // There is a piece here for this graph
             num++;
         }
     }
@@ -275,8 +302,9 @@ std::vector<std::vector<int>> weaklyconnected(const Graph& g){  //might need und
         if(!visited[i]){
             //if a node is not visited, create a new connected component and find connections recursively
             std::vector<int> c;
-            findConnected(i,visited,c,g);
-            for (auto i : c) {
+            findConnected(i, visited, c, g);
+            for (auto i : c)
+            {
             }
             if (!c.empty()) {
                 //push nodes into components vector
@@ -300,7 +328,6 @@ void findConnected(int node, std::vector<bool>& visited, std::vector<int>& compo
             findConnected(i,visited,component,g);
         }
     }
-
 }
 
 //Input graph g and vector of weakly connected components
@@ -313,20 +340,22 @@ std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> co
     for (unsigned i = 0; i < components.size(); i++) {
         std::map<int,int> numEdges;
         std::vector<std::list<int>> adj = makeEulerianAdj(g, components[i]);
-    
-        for (unsigned i = 0; i < adj.size(); i++) {
+
+        for (unsigned i = 0; i < adj.size(); i++)
+        {
             numEdges[i] = adj[i].size();
         }
-    
-        if (!adj.size() || !isEulerian(g, components[i], adj)) {
+
+        if (!adj.size()) {
             allCycles.push_back(std::vector<int>());
             break;
         }
-    //stack to hold vertices
+
+        //stack to hold vertices
         std::stack<int> path;
-    //stores current cycle
+        //stores current cycle
         std::vector<int> cycle;
-    
+
         path.push(components[i][0]);
         int curr = components[i][0];
         int first = components[i][0];
@@ -350,47 +379,38 @@ std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> co
             //backtracking portion to find next cycle
             } else {
                 cycle.push_back(curr);
-    
+
                 curr = path.top();
                 path.pop();
             }
         }
-    
-        reverse(cycle.begin(), cycle.end());
-        allCycles.push_back(cycle);
-    }
-    
-    return allCycles;
-}
 
-std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component) {
-    std::vector<std::list<int>> adj;
-    for (auto each : component) {
-        adj.push_back(g.out_neighbors(each));
-    }
-    return adj;
-}
+        std::vector<std::list<int>> adjFull = makeEulerianAdj(g, components[i]);
 
-bool isEulerian(Graph g, std::vector<int> elems, std::vector<std::list<int>> adj) {
-    bool x = false;
-    bool y = false;
-    for (unsigned i = 0; i < adj.size(); i++) {
+        int nEdges = 0;
+        for (int x = 0; x < (int)adjFull.size(); x++) {
+            nEdges += adjFull[x].size();
+        }
 
-        int out_degree = g.out_degree(elems[i]);
-        int in_degree = g.in_degree(elems[i]);
- 
-        if (out_degree != in_degree) {
-            if (!x && out_degree - in_degree == 1) {
-                x = true;
-            } else if (!y && in_degree - out_degree == 1) {
-                y = true;
-            } else {
-                return false;
-            }
+        if (cycle.front() != cycle.back() || cycle.size() != (unsigned)(nEdges + 1)) {
+            allCycles.push_back(std::vector<int>());
+        } else {
+            reverse(cycle.begin(), cycle.end());
+            allCycles.push_back(cycle);
         }
     }
 
-    return true;
+    return allCycles;
+}
+
+std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component)
+{
+    std::vector<std::list<int>> adj;
+    for (auto each : component)
+    {
+        adj.push_back(g.out_neighbors(each));
+    }
+    return adj;
 }
  
 int numCycles(Graph g) {
@@ -399,11 +419,13 @@ int numCycles(Graph g) {
     std::vector<std::vector<int>> eul = eulerian(g, components);
 
     int cycles = 0;
-    for (auto each : eul) {
-        if (!each.empty()) {
+    for (auto each : eul)
+    {
+        if (!each.empty())
+        {
             cycles++;
         }
     }
-    
+
     return cycles;
 }
