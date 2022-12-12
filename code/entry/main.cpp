@@ -104,8 +104,10 @@ int main(int argc, char **argv)
         positionCharacteristics.push_back(white - black);
 
 
-    int wE = numCycles(w_support);
     int bE = numCycles(b_support);
+    int wE = numCycles(w_support);
+    std::cout << "black " << bE << " white " << wE << std::endl;
+    std::cout << "degree black " << average_degree(b_support) << " degree white " << average_degree(w_support) << std::endl;
     eulerianPredictor.push_back(wE < bE);
     
     std::map<int, int> whitec = brandes(w_support);
