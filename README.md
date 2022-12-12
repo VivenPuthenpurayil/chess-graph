@@ -21,31 +21,31 @@ Video
 
 ### Code Organization
 
-Data of random online chess games:
-chess-graph/data/lichess_games.txt
+Data of random online chess games:<br>
+chess-graph/data/lichess_games.txt<br>
 
-Data of just carlsen grandmaster games:
-chess-graph/data/carlsen_preprocessed.txt
+Data of just carlsen grandmaster games:<br>
+chess-graph/data/carlsen_preprocessed.txt<br>
 
-Script to process the data:
-chess-graph/code/src/scripts/preprocess.py
+Script to process the data:<br>
+chess-graph/code/src/scripts/preprocess.py<br>
 
-Files which creates our graph from the data:
-chess-graph/code/src/position.h
-chess-graph/code/src/graph_generator.h
-chess-graph/code/src/graph.h
+Files which creates our graph from the data:<br>
+chess-graph/code/src/position.h<br>
+chess-graph/code/src/graph_generator.h<br>
+chess-graph/code/src/graph.h<br>
 
-File which houses our Brandes, Eulerian, and Tarjans algorithim:
-chess-graph/code/src/graph_algorithms.h
+File which houses our Brandes, Eulerian, and Tarjans algorithim:<br>
+chess-graph/code/src/graph_algorithms.h<br>
 
-File that creates the visualization of the chess board
-chess-graph/code/src/visualizer.h
+File that creates the visualization of the chess board<br>
+chess-graph/code/src/visualizer.h<br>
 
-Output of the visualization:
-chess-graph/output
+Output of the visualization:<br>
+chess-graph/output<br>
 
-Test files located here
-chess-graph/code/tests
+Test files located here<br>
+chess-graph/code/tests<br>
 
 ### Running Instructions
 Once you are in the chess-graph directory to run the code you need to run this in your terminal
