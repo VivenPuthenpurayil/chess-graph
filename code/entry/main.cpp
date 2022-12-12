@@ -101,6 +101,19 @@ int main(int argc, char **argv)
 
 
 
+
+        positionCharacteristics.push_back(white - black);
+
+        white = numCycles(w_position);
+        black = numCycles(b_position);
+
+        positionCharacteristics.push_back(white - black);
+
+        white = numCycles(w_support);
+        black = numCycles(b_support);
+
+
+
         positionCharacteristics.push_back(white - black);
 
 
@@ -108,8 +121,8 @@ int main(int argc, char **argv)
     int bE = numCycles(b_support);
     eulerianPredictor.push_back(wE < bE);
     
-    std::map<int, int> whitec = brandes(w_support);
-    std::map<int, int> blackc = brandes(b_support);
+    std::map<int, int> whitec = brandes(w_attack);
+    std::map<int, int> blackc = brandes(b_attack);
 
     int whitem = 0;
     int blackm = 0;
@@ -130,8 +143,8 @@ int main(int argc, char **argv)
     }
 
 
-    whiteWinBrandes.push_back(whitem >= blackm);
-    whiteWinBrandes2.push_back(whitem2 >= blackm2);
+    whiteWinBrandes.push_back(whitem < blackm);
+    whiteWinBrandes2.push_back(whitem2 < blackm2);
 
         // Average Support Degree
         white = average_degree(w_support);
@@ -216,6 +229,8 @@ int main(int argc, char **argv)
 
         positionCharacteristics.push_back(white - black);
 
+        
+
         for (int k = 0; k < 6; k++) {
             white = num_large_scc(white_ll, k);
             black = num_large_scc(black_ll, k);
@@ -270,7 +285,6 @@ int main(int argc, char **argv)
         float eval_r2 = LinearRegression(characteristic, evaluation);
         float result_r2 = LinearRegression(characteristic, result2);
 
-        std::cout << eval_r2 << " " << result_r2 << "\n";
     }
     
     infile.close();
