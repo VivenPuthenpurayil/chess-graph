@@ -225,6 +225,7 @@ std::vector<int> tarjans(const Graph& g) {
     return lowlink;
 }
 
+
 void tarjans_(int v, const Graph &g, std::vector<int> &lowlink, std::stack<int> &ll_stack, std::vector<bool> &on_stack, std::vector<bool> &visited, int &id, std::vector<int> &ids)
 {
     ll_stack.push(v);
@@ -387,11 +388,13 @@ std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> co
 
         std::vector<std::list<int>> adjFull = makeEulerianAdj(g, components[i]);
 
+        // Getting the number of edges in graph
         int nEdges = 0;
         for (int x = 0; x < (int)adjFull.size(); x++) {
             nEdges += adjFull[x].size();
         }
 
+        // Checking to see if the output is a valid eulerian cycle
         if (cycle.front() != cycle.back() || cycle.size() != (unsigned)(nEdges + 1)) {
             allCycles.push_back(std::vector<int>());
         } else {
@@ -403,6 +406,8 @@ std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> co
     return allCycles;
 }
 
+// Input a graph and a vector of ints of one weakly connected component
+// Output of a vector of a list of ints which is an adjacency list
 std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component)
 {
     std::vector<std::list<int>> adj;
@@ -412,7 +417,9 @@ std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component)
     }
     return adj;
 }
- 
+
+// Input a graph
+// Outputs the total number of cycles that occurs in each of the graphs weakly connected components
 int numCycles(Graph g) {
     std::vector<std::vector<int>> components = weaklyconnected(g);
 
