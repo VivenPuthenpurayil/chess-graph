@@ -225,7 +225,8 @@ std::vector<int> tarjans(const Graph& g) {
     return lowlink;
 }
 
-
+// Input a int v, graph, vector of ints for the lowlinks, stack of ints for the lowlinks, vector of bools to determine if its on the stack, a vector of bools to determine visited, an id, and a vector of ints for ids
+// Output void
 void tarjans_(int v, const Graph &g, std::vector<int> &lowlink, std::stack<int> &ll_stack, std::vector<bool> &on_stack, std::vector<bool> &visited, int &id, std::vector<int> &ids)
 {
     ll_stack.push(v);
@@ -234,6 +235,8 @@ void tarjans_(int v, const Graph &g, std::vector<int> &lowlink, std::stack<int> 
     lowlink[v] = id;
     ids[v] = id++;
 
+    // For each neighbor of v if it hasn't been visited run tarjans on it again
+    // if it has been visited take the minimum lowlink between the original node and the neighbor
     for (int n : g.out_neighbors(v))
     {
         if (visited[n] == false)
@@ -246,6 +249,9 @@ void tarjans_(int v, const Graph &g, std::vector<int> &lowlink, std::stack<int> 
         }
     }
 
+
+    // Goes through and processes the items in the stack until
+    // we are back at the start of the strongly connected component
     if (lowlink[v] == ids[v])
     {
         while (!ll_stack.empty())
