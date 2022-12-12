@@ -40,4 +40,8 @@ std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component)
 
 bool isEulerian(Graph g, std::vector<int> elems, std::vector<std::list<int>> adj);
 
+int numCycles(Graph g);
+
 std::map<int, int> brandes(const Graph& g);
+
+
