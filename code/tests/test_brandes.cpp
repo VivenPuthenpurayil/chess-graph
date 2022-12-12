@@ -174,7 +174,7 @@ TEST_CASE("test Brandes::hard 3")
 
     g.insertEdge(6, 7);
     g.insertEdge(7, 4);
-g.insertEdge(0, 9);
+    g.insertEdge(0, 9);
 
 
 
@@ -190,6 +190,47 @@ g.insertEdge(0, 9);
     check[7] = 2;
     check[8] = 0;
     check[9] = 0;
+
+    REQUIRE(brandes(g) == check);
+    // std::cout << "________________________________________________" << std::endl;
+
+    // std::map<int, int> t = brandes(g);
+    // for (auto e : t) {
+    //     std::cout <<"Node: " <<  e.first << " has centrality of: " << e.second << std::endl;
+    // }
+    
+    // std::cout << "________________________________________________" << std::endl;
+
+
+}
+
+
+TEST_CASE("test Brandes::hard 4") 
+{  
+    
+    Graph g(8);
+    g.insertEdge(0, 1, 1);
+    g.insertEdge(1, 2, 1);
+    g.insertEdge(2, 0, 1);
+
+    g.insertEdge(3, 4, 1);
+    g.insertEdge(3, 5, 1);
+    g.insertEdge(3, 6, 1);
+    g.insertEdge(3, 7, 1);
+
+
+
+
+    std::map<int, int> check;
+    check[0] = 0;
+    check[1] = 0;
+    check[2] = 0;
+    check[3] = 12;
+    check[4] = 0;
+    check[5] = 0;
+    check[6] = 0;
+    check[7] = 0;
+
 
     REQUIRE(brandes(g) == check);
     // std::cout << "________________________________________________" << std::endl;
