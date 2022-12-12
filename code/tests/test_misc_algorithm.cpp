@@ -55,15 +55,8 @@ TEST_CASE("test SANITY")
     draw_position(default_pos, output);
     output.writeToFile("../defaultposition.png");
 
-    //REQUIRE(average_degree(b_support) == average_degree(w_support));
-    //REQUIRE(average_degree(b_attack) == average_degree(w_attack));
-    //REQUIRE(average_degree(w_position) == average_degree(b_position));
-
     REQUIRE(weaklyconnected(b_support).size() == weaklyconnected(w_support).size());
     REQUIRE(weaklyconnected(b_position).size() == weaklyconnected(w_position).size());
-
-    // REQUIRE(eulerian(b_support, weaklyconnected(b_support)) == eulerian(w_support, weaklyconnected(w_support)));
-    // REQUIRE(eulerian(b_position) == eulerian(w_position));
 
     REQUIRE(numCycles(b_support) == numCycles(w_support));
     REQUIRE(numCycles(w_position) == numCycles(b_position));

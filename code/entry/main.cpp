@@ -225,26 +225,6 @@ int main(int argc, char **argv)
             positionCharacteristics.push_back(white - black);
         }
 
-        // Attack
-        /**
-        white_ll = tarjans(w_attack);
-        black_ll = tarjans(b_attack);
-
-        white = max_size_scc(white_ll);
-        black = max_size_scc(black_ll);
-
-        std::cout << white-black << " ";
-
-        positionCharacteristics.push_back(white - black);
-
-        for (int k = 0; k < 6; k++) {
-            white = num_large_scc(white_ll, k);
-            black = num_large_scc(black_ll, k);
-
-            positionCharacteristics.push_back(white - black);
-        }
-        */
-
         // Position
         white_ll = tarjans(w_position);
         black_ll = tarjans(b_position);
@@ -271,32 +251,11 @@ int main(int argc, char **argv)
         }
         outfile << std::endl;
         positionCharacteristics.clear();
-
-        /**
-        float white = max_size_scc(tarjans(w_support)); //num_large_scc(tarjans(w_support), 4);
-        float black = max_size_scc(tarjans(b_support)); //num_large_scc(tarjans(b_support), 4);
-        white = w_support.num_edges();
-        black = b_support.num_edges();
-        white = average_degree(w_support);
-        black = average_degree(b_support);
-        //
-        */
-
-        // std::cout << white - black << ", " << pos.evaluation - (100 * (pos.material_white - pos.material_black));
-        /**for (auto & g : graphs) {
-            std::vector<int> ll(pos.num_pieces);
-            ll = tarjans(g);
-            int sccs = num_large_scc(ll, 1);
-            int edges = g.num_edges();
-            std::cout << sccs << " ";
-        }
-        */
     }
 
     // Run + Output Linear Regression Results
     // Loop through the characteristics for the first position.
 
-    // std::vector<float> analysis_vec = evaluation;
     std::vector<float> result2(result.begin(), result.end());
 
     for (int i = 0; i < (int)characteristics[0].size(); i++)
@@ -339,17 +298,17 @@ int main(int argc, char **argv)
 
         if (whiteEdge[i])
         {
-            sub += 1;
+            sub += 2;
         }
 
         if (whiteEdge2[i])
         {
-            sub += 1;
+            sub += 2;
         }
 
         if (eulerianPredictor[i])
         {
-            sub += 1;
+            sub += 2;
         }
 
         // establishing condition to count aggregated value as a win or loss for whtie

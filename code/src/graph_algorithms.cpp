@@ -68,23 +68,8 @@ std::map<int, int> brandes(const Graph &g)
     return c;
 }
 
-<<<<<<< HEAD
 float average_degree(const Graph& g) {
     return ((float) g.num_edges()) / ((float) g.num_verticies()) * 2;
-=======
-float average_degree(const Graph &g)
-{
-    float num = 0;
-    for (int i = 0; i < g.num_verticies(); i++)
-    {
-        if (g.degree(i) > 0)
-        {
-            num += g.degree(i);
-            num /= 2;
-        }
-    }
-    return num;
->>>>>>> e9ec52a8c6758af5f8ce0698e1fd3c4899fd3d2e
 }
 
 int max_degree(const Graph &g)
@@ -340,22 +325,8 @@ std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> co
         {
             numEdges[i] = adj[i].size();
         }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> e9ec52a8c6758af5f8ce0698e1fd3c4899fd3d2e
-        // if (!adj.size() || !isEulerian(g, components[i], adj)) {
-        //     allCycles.push_back(std::vector<int>());
-        //     break;
-        // }
-
-<<<<<<< HEAD
         if (!adj.size()) {
-=======
-        if (!adj.size())
-        {
->>>>>>> e9ec52a8c6758af5f8ce0698e1fd3c4899fd3d2e
             allCycles.push_back(std::vector<int>());
             break;
         }
@@ -390,7 +361,6 @@ std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> co
             }
         }
 
-<<<<<<< HEAD
         std::vector<std::list<int>> adjFull = makeEulerianAdj(g, components[i]);
 
         int nEdges = 0;
@@ -404,10 +374,6 @@ std::vector<std::vector<int>> eulerian(Graph g, std::vector<std::vector<int>> co
             reverse(cycle.begin(), cycle.end());
             allCycles.push_back(cycle);
         }
-=======
-        reverse(cycle.begin(), cycle.end());
-        allCycles.push_back(cycle);
->>>>>>> e9ec52a8c6758af5f8ce0698e1fd3c4899fd3d2e
     }
 
     return allCycles;
@@ -422,71 +388,8 @@ std::vector<std::list<int>> makeEulerianAdj(Graph g, std::vector<int> component)
     }
     return adj;
 }
-
-<<<<<<< HEAD
-
-
-// /* This function returns true if the directed graph has a eulerian
-//    cycle, otherwise returns false  */
-// bool isEulerian(Graph g, std::vector<int> elems, std::vector<std::list<int>> adj)
-// {
-//     // Check if all non-zero degree vertices are connected
-//     std::vector<int> tarjansOut = tarjans(g);
-
-//     int comp = -1;
-//     for (unsigned i = 0; i < tarjansOut.size(); i++) {
-//         if (comp == -1 && g.degree(i) > 0) {
-//             comp = tarjansOut[i];
-//         } else if (g.degree(i) > 0 && tarjansOut[i] != comp) {
-//             return false;
-//         }
-//     }
-
-//     for (auto each: elems) {
-//         if (g.out_degree(each) != g.in_degree(each)) {
-//             return false;
-//         }
-//     }
- 
-//     return true;
-// }
-
  
 int numCycles(Graph g) {
-=======
-bool isEulerian(Graph g, std::vector<int> elems, std::vector<std::list<int>> adj)
-{
-    bool x = false;
-    bool y = false;
-    for (unsigned i = 0; i < adj.size(); i++)
-    {
-
-        int out_degree = g.out_degree(elems[i]);
-        int in_degree = g.in_degree(elems[i]);
-
-        if (out_degree != in_degree)
-        {
-            if (!x && out_degree - in_degree == 1)
-            {
-                x = true;
-            }
-            else if (!y && in_degree - out_degree == 1)
-            {
-                y = true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-int numCycles(Graph g)
-{
->>>>>>> e9ec52a8c6758af5f8ce0698e1fd3c4899fd3d2e
     std::vector<std::vector<int>> components = weaklyconnected(g);
 
     std::vector<std::vector<int>> eul = eulerian(g, components);
