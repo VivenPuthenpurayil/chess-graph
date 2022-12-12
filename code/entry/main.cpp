@@ -289,12 +289,12 @@ int main(int argc, char **argv)
     
     infile.close();
     outfile.close();
-    int correct = 0;
-    int correct2 = 0;
-    int correct3 = 0;
-    int correct4 = 0;
-    int correct5 = 0;
-    int correct6 = 0;
+    int centralityTotalPredictorSum = 0;
+    int centralityMaxPredictorSum = 0;
+    int materialPredictorSum = 0;
+    int edgePredictorSupportSum = 0;
+    int edgePredictorPositionSum = 0;
+    int eulerianPredictorSum = 0;
     int aggregate = 0;
 
     for (unsigned i = 0; i < whiteWinBrandes.size(); i++) {
@@ -326,45 +326,45 @@ int main(int argc, char **argv)
 
 
         if (result[i] == 1 && whiteWinBrandes[i]) {
-            correct += 1;
+            centralityTotalPredictorSum += 1;
         }
         if (result[i] == 0 && !whiteWinBrandes[i]) {
-            correct += 1;
+            centralityTotalPredictorSum += 1;
         } 
         if (result[i] == 1 && whiteWinBrandes2[i]) {
-            correct2 += 1;
+            centralityMaxPredictorSum += 1;
         }
         if (result[i] == 0 && !whiteWinBrandes2[i]) {
-            correct2 += 1;
+            centralityMaxPredictorSum += 1;
         }
 
 
         if (result[i] == 1 && whiteMaterial[i]) {
-            correct3 += 1;
+            materialPredictorSum += 1;
         }
         if (result[i] == 0 && !whiteMaterial[i]) {
-            correct3 += 1;
+            materialPredictorSum += 1;
         }   
 
         if (result[i] == 1 && whiteEdge[i]) {
-            correct4 += 1;
+            edgePredictorSupportSum += 1;
         }
         if (result[i] == 0 && !whiteEdge[i]) {
-            correct4 += 1;
+            edgePredictorSupportSum += 1;
         }
 
         if (result[i] == 1 && whiteEdge2[i]) {
-            correct5 += 1;
+            edgePredictorPositionSum += 1;
         }
         if (result[i] == 0 && !whiteEdge2[i]) {
-            correct5 += 1;
+            edgePredictorPositionSum += 1;
         }
 
         if (result[i] == 1 && eulerianPredictor[i]) {
-            correct6 += 1;
+            eulerianPredictorSum += 1;
         }
         if (result[i] == 0 && !eulerianPredictor[i]) {
-            correct6 += 1;
+            eulerianPredictorSum += 1;
         }
 
         if (result[i] == 1 && res) {
@@ -374,14 +374,14 @@ int main(int argc, char **argv)
             aggregate += 1;
         }                
     }
-    std::cout << "The total amount correct predictions is: " << correct << " out of " << whiteWinBrandes.size() << " guesses giving a accuracy rate of: " << (float)(correct)/ (float)(whiteWinBrandes.size()) << std::endl;
-    std::cout << "The total amount correct predictions is: " << correct2 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct2)/ (float)(whiteWinBrandes.size()) << std::endl;
-    std::cout << "The total amount correct predictions is: " << correct3 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct3)/ (float)(whiteWinBrandes.size()) << std::endl;
-    std::cout << "The total amount correct predictions is: " << correct4 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct4)/ (float)(whiteWinBrandes.size()) << std::endl;
-    std::cout << "The total amount correct predictions is: " << correct5 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct5)/ (float)(whiteWinBrandes.size()) << std::endl;
-    std::cout << "The total amount correct predictions is: " << correct6 << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(correct6)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The centralityTotalPredictorSum predictions is: " << centralityTotalPredictorSum << " out of " << whiteWinBrandes.size() << " guesses giving a accuracy rate of: " << (float)(centralityTotalPredictorSum)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The centralityMaxPredictorSum predictions is: " << centralityMaxPredictorSum << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(centralityMaxPredictorSum)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The materialPredictorSum predictions is: " << materialPredictorSum << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(materialPredictorSum)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The edgePredictorSupportSum predictions is: " << edgePredictorSupportSum << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(edgePredictorSupportSum)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The edgePredictorPositionSum predictions is: " << edgePredictorPositionSum << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(edgePredictorPositionSum)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The eulerianPredictorSum predictions is: " << eulerianPredictorSum << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(eulerianPredictorSum)/ (float)(whiteWinBrandes.size()) << std::endl;
 
-    std::cout << "The total amount correct predictions is: " << aggregate << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(aggregate)/ (float)(whiteWinBrandes.size()) << std::endl;
+    std::cout << "The aggregate predictions is: " << aggregate << " out of " << whiteWinBrandes2.size() << " guesses giving a accuracy rate of: " << (float)(aggregate)/ (float)(whiteWinBrandes.size()) << std::endl;
 
 
     return 0;
