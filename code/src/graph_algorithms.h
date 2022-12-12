@@ -25,7 +25,6 @@ int max_degree(const Graph& g);
 
 int num_edges(const Graph& g); 
 
-
 int count_undefended_defenders(const Graph& support);
 
 int count_hanging_pieces(const Graph& attack, const Graph& support);

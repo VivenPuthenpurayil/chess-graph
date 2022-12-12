@@ -93,6 +93,10 @@ Image get_brandes_image(Position & p, std::vector<int> colorscheme) {
 
 }
 
+/**
+  * Provide an image of a chess position based on a given colorscheme.
+  * Colorscheme is used to declare groups (inteded for use with tarjans algorithm).
+  */
 Image get_groups_image(Position & p, std::vector<int> colorscheme) {
     Image board; board.readFromFile("../../images/chessboard.png");
     board.resize(480, 480);
