@@ -63,6 +63,40 @@ Image get_position_image(Position & p) {
     return sheet.render();
 }
 
+Image get_brandes_image(Position & p, std::vector<int> colorscheme) {
+
+    Image board; board.readFromFile("../../images/chessboard.png");
+    board.resize(480, 480);
+    StickerSheet sheet(board, 64);
+    int color = 0;
+
+    for(size_t i = 0; i < 64; i++) {
+        
+        if (p.board[i].type == Position::Piece::NONE) {
+            continue;
+        }
+        Image piece = get_piece_image(p.board[i]);
+        color = colorscheme[i];
+
+        if (color != 0) {
+            color_piece(piece, color * 2);
+        }
+        
+
+        int x = (i % 8);
+        int y = ((i - x) / 8);
+
+        sheet.addSticker(piece, x * 60 + 8, y * 60 + 8);
+    }
+
+    return sheet.render();
+
+}
+
+/**
+  * Provide an image of a chess position based on a given colorscheme.
+  * Colorscheme is used to declare groups (inteded for use with tarjans algorithm).
+  */
 Image get_groups_image(Position & p, std::vector<int> colorscheme) {
     Image board; board.readFromFile("../../images/chessboard.png");
     board.resize(480, 480);

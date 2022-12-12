@@ -24,7 +24,12 @@ int SplitString(const std::string & str1, char sep, std::vector<std::string> &fi
 //https://www.ncl.ac.uk/webtemplate/ask-assets/external/maths-resources/statistics/regression-and-correlation/coefficient-of-determination-r-squared.html#Definition
 float LinearRegression(const std::vector<float> & x, const std::vector<float> & y);
 
-// Output colored text
+/**
+ * Output colored text 
+ * Code from Joel Sjorgen via stackoverflow
+ * https://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-linux-terminal
+**/
+
 namespace Color {
     enum Code {
         FG_RED      = 31,
@@ -54,6 +59,12 @@ namespace Color {
     };
 }
 
+/**
+ * Helper class to handle command line inputs.
+ * Code from stackeoverflow.
+ * @authors @iain and @0x90
+ * https://stackoverflow.com/questions/865668/parsing-command-line-arguments-in-c
+ **/
 class InputParser{
     public:
         InputParser (int &argc, char **argv){
