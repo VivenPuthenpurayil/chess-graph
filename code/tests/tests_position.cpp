@@ -12,7 +12,7 @@ TEST_CASE("test Position::default")
 	Position pos;
 	Position::Piece p = pos.board[pos.toIndex("a2")];
 	REQUIRE((p.type == Position::Piece::PAWN && p.color == LIGHT));
-	REQUIRE(pos.legal_moves.size() == 0);
+	REQUIRE(pos.legal_moves.size() == 76);
 	REQUIRE(pos.num_pieces == 32);
 
 }
@@ -29,13 +29,11 @@ TEST_CASE("test Position::fromFile")
 	file.close();
 
 	Position pos(data);
-	REQUIRE(pos.num_pieces == 29);
+	REQUIRE(pos.num_pieces == 28);
 	Position::Piece N = pos.board[pos.toIndex("g5")];
-	REQUIRE((N.type == Position::Piece::KNIGHT && N.color == LIGHT));
+	REQUIRE((N.type == Position::Piece::BISHOP && N.color == LIGHT));
 
-	Position::Piece q = pos.board[pos.toIndex("b6")];
+	Position::Piece q = pos.board[pos.toIndex("d5")];
 
 	REQUIRE((q.type == Position::Piece::QUEEN && q.color == DARK));
-
-
 }
