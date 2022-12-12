@@ -7,7 +7,9 @@ https://snap.stanford.edu/class/cs224w-2013/projects2013/cs224w-023-final.pdf
 
   Example:
 
-  ```python3 code/src/scripts/preprocess.py --no-evaluation "data/lichess_2013.pgn" 'output.txt'```
+  ```
+  python3 code/src/scripts/preprocess.py --no-evaluation "data/lichess_2013.pgn" 'output.txt'
+  ```
 
 ## Code
 Once you are in the chess-graph directory to run the code you need to run this in your terminal
@@ -20,9 +22,9 @@ cmake ..
 make
 ```
 
-To run the main file you can do
+To run the main file you can do this where the -n flag represents the number of games and the -i flag represents the input file
 ```
-./main
+./main -n 100 -i  "../../data/lichess_games.txt"
 ```
 
 Then to run the test file you can do
