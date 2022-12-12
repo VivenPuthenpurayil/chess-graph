@@ -1,5 +1,7 @@
 # Chess graph
-https://snap.stanford.edu/class/cs224w-2013/projects2013/cs224w-023-final.pdf
+[Slides](https://docs.google.com/presentation/d/1TfvjVHeO4fC0OuBWD21Kz7FtHWPW0xUsqJKufKUEVmg/edit?usp=sharing) 
+Video: 
+Inspiration: https://snap.stanford.edu/class/cs224w-2013/projects2013/cs224w-023-final.pdf
 
 ## Preprocess Tutorial
 

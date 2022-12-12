@@ -310,9 +310,6 @@ std::vector<std::vector<int>> weaklyconnected(const Graph& g){  //might need und
             //if a node is not visited, create a new connected component and find connections recursively
             std::vector<int> c;
             findConnected(i, visited, c, g);
-            for (auto i : c)
-            {
-            }
             if (!c.empty()) {
                 //push nodes into components vector
                 components.push_back(c);
