@@ -4,75 +4,73 @@
 // Output a map of each vertex that maps to its own centrality
 std::map<int, int> brandes(const Graph& g) {
     //initialize map to return
-    std::map<int, int> c;
+    std::map<int, int> centrality;
     // populating map with 0 values for initial state
     for (int v = 0; v < g.num_verticies(); v++) {
-        c[v] = 0;
+        centrality[v] = 0;
     }
     // Iterate for each vertex in map
     for (int v = 0; v < g.num_verticies(); v++) {
-        std::stack<int> s;
-        std::map<int, std::vector<int>> p;
+        std::stack<int> stack;
+        std::map<int, std::vector<int>> path;
         std::map<int, int> ge;
-        std::map<int, int> d;
-        
+        std::map<int, int> dist;
+       
         // populate each map
         // p is a map of vertices to optimal pathways
-
+ 
         for (int a = 0; a < g.num_verticies(); a++) {
-            p[a] = std::vector<int>();
+            path[a] = std::vector<int>();
             ge[a] = 0;
-            d[a] = -1;
+            dist[a] = -1;
         }
-        // set initial state for node currently being visisted 
+        // set initial state for node currently being visisted
         ge[v] = 1;
-        d[v] = 0;
-
-        std::queue<int> q;
-        q.push(v);
-        while (!q.empty())
+        dist[v] = 0;
+ 
+        std::queue<int> queue;
+        queue.push(v);
+        while (!queue.empty())
         {
-            int curr = q.front();
-            q.pop();
-            s.push(curr);
+            int curr = queue.front();
+            queue.pop();
+            stack.push(curr);
             std::list<int> w1 = g.neighbors(curr);
-
+ 
             for (int w : w1) {
                 //check if the node is being visited for the first time
-                if (d[w] < 0) {
-                    q.push(w);
-                    d[w] = d[curr] + 1;
+                if (dist[w] < 0) {
+                    queue.push(w);
+                    dist[w] = dist[curr] + 1;
                 }
                 //shortest path from w to curr
-                if (d[w] == d[curr] + 1) {
+                if (dist[w] == dist[curr] + 1) {
                     ge[w] = ge[w] + ge[curr];
-                    p[w].push_back(curr);
+                    path[w].push_back(curr);
                 }
             }
         }
-
+ 
         std::map<int, int> e;
-
-        //return vertices in order of non -increasing distance from s
         for (int a = 0; a < g.num_verticies(); a++) {
             e[a] = 0;
         }
-
-        while (!s.empty())
+	//return vertices in order of non -increasing distance from s
+        while (!stack.empty())
         {
-            int w = s.top();
-            s.pop();
-            for (int ve : p[w])
+            int w = stack.top();
+            stack.pop();
+            for (int ve : path[w])
             {
                 e[ve] = e[ve] + (ge[ve] / ge[w]) * (1 + e[w]);
             }
             if (w != v)
             {
-                c[w] = c[w] + e[w];
+                centrality[w] = centrality[w] + e[w];
             }
         }
     }
-    return c;
+    return centrality;
 }
 
 //Input graph g
@@ -310,9 +308,6 @@ std::vector<std::vector<int>> weaklyconnected(const Graph& g){  //might need und
             //if a node is not visited, create a new connected component and find connections recursively
             std::vector<int> c;
             findConnected(i, visited, c, g);
-            for (auto i : c)
-            {
-            }
             if (!c.empty()) {
                 //push nodes into components vector
                 components.push_back(c);
