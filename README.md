@@ -4,7 +4,7 @@
 
 [Video](https://www.youtube.com/watch?v=1n9DixM1hq4&ab_channel=AmanSingh)
 
-[Final Report](https://github.com/VivenPuthenpurayil/chess-graph/blob/results/Report.md)
+[Final Report] (https://github.com/VivenPuthenpurayil/chess-graph/blob/main/results.md)
 
 [Inspiration](https://snap.stanford.edu/class/cs224w-2013/projects2013/cs224w-023-final.pdf)
 
