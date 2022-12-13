@@ -2,8 +2,9 @@
 [Slides](https://docs.google.com/presentation/d/1TfvjVHeO4fC0OuBWD21Kz7FtHWPW0xUsqJKufKUEVmg/edit?usp=sharing) 
 
 
-[Video](https://www.youtube.com/watch?v=1n9DixM1hq4&ab_channel=AmanSingh) 
+[Video](https://www.youtube.com/watch?v=1n9DixM1hq4&ab_channel=AmanSingh)
 
+[Final Report](https://github.com/VivenPuthenpurayil/chess-graph/blob/results/Report.md)
 
 [Inspiration](https://snap.stanford.edu/class/cs224w-2013/projects2013/cs224w-023-final.pdf)
 
